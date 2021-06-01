@@ -10,8 +10,8 @@ export default {
   created() {
 
 
-    this.$AppContext.test();
-
+    this.test()
+    this.store()
 
   }
 }
