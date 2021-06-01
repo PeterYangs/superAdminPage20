@@ -10,6 +10,9 @@ export default {
   created() {
 
 
+    this.$AppContext.test();
+
+
   }
 }
 </script>
