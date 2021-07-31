@@ -2,12 +2,18 @@ import {createRouter, createWebHistory} from 'vue-router'
 
 const routes = [
     {
-        path: '',
+        path: '/main',
         component: () => import('../components/Main.vue'),
-        // children: [{
-        //     path: 'index',
-        //     component: () => import('../components/HelloWorld.vue')
-        // }]
+        children: [
+            {
+                path: 'rule_edit',
+                component: () => import('../components/admin/rule_edit.vue')
+            },
+            {
+                path: 'rule_list',
+                component: () => import('../components/admin/rule_list.vue')
+            },
+        ]
     },
     {
         path: "/hello",
@@ -16,7 +22,7 @@ const routes = [
     },
     {
         path: "/login",
-        component:()=>import('../components/login/Login.vue')
+        component: () => import('../components/login/Login.vue')
     }
 
 ]
