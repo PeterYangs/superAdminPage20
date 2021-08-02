@@ -65,7 +65,14 @@ export default {
       this.msgBoxAjax("提示","确认提交吗？","/admin/rule/update",this.item).then((re)=>{
 
 
-        console.log(re)
+        // if (re.code)
+
+        // ElMessage.error(re.msg);
+
+        if (re.code===1){
+
+          this.$router.go(-1);
+        }
 
       })
 

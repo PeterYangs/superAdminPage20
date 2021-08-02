@@ -1,6 +1,7 @@
 import env from './env.js'
 import axios from 'axios'
 import router from './router'
+import { ElMessage } from 'element-plus'
 
 const common=(app,store)=>{
 
@@ -423,6 +424,15 @@ const common=(app,store)=>{
 
 
                             i.responseData = re;
+
+                            if (re.code!==1){
+
+                                ElMessage.error({
+                                    message:re.msg,
+                                    duration:5000
+                                });
+
+                            }
 
 
 
