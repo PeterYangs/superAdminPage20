@@ -3,9 +3,9 @@
     <el-aside width="200px" style="background-color: rgb(238, 241, 246)">
       <el-menu :default-openeds="['1', '3']">
         <el-submenu index="1">
-          <template #title><i class="el-icon-message"></i>导航一</template>
+          <template #title><i class="el-icon-message"></i>管理员</template>
 
-            <el-menu-item index="1-1">选项1</el-menu-item>
+            <el-menu-item index="1-1" @click="toPath('/main/rule_list')">规则列表</el-menu-item>
             <el-menu-item index="1-2">选项2</el-menu-item>
 
 
@@ -50,6 +50,14 @@ export default {
       tableData: Array(20).fill(item)
     }
   },
+  methods:{
+
+    toPath(url){
+
+      this.$router.push(url)
+    }
+
+  }
 
 };
 </script>

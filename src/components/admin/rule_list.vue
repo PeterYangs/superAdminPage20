@@ -8,9 +8,10 @@
         </div>
       </template>
 
-
       <div>
-        <el-table :data="list" style="width: 100%">
+
+        <el-button type="success" @click="edit(0)">添加规则</el-button>
+        <el-table :data="list.data" style="width: 100%">
           <el-table-column prop="id" label="Id">
           </el-table-column>
 
@@ -28,12 +29,25 @@
             <template v-slot="item">
 
               <el-button type="primary" size="small" @click="edit(item.row.id)">编辑</el-button>
+              <el-button type="danger" size="small" @click="destroy(item.row.id)">删除</el-button>
 
             </template>
 
           </el-table-column>
 
         </el-table>
+
+        <div style="margin-top: 20px">
+          <el-pagination
+              @current-change="next"
+              :page-size="list.size"
+              background
+              :current-page="list.page"
+              layout="total,prev, pager, next,jumper"
+              :total="list.total">
+          </el-pagination>
+        </div>
+
       </div>
 
 
@@ -48,34 +62,56 @@ export default {
   data() {
 
     return {
-      list: []
+      list: {}
     }
   },
-  methods:{
+  methods: {
 
-    getList(){
+    getList() {
 
       this.httpGet({
-        url:"/admin/rule/list",
-        loading:true,
-      }).then((re)=>{
+        url: "/admin/rule/list",
+        loading: true,
+        params: this.$route.query,
+      }).then((re) => {
 
-        this.list=re.data;
+        this.list = re.data;
 
       })
 
     },
-    edit(id){
+    edit(id) {
 
       this.$router.push({
-        path:"/main/rule_edit",
-        query:{id:id}
+        path: "/main/rule_edit",
+        query: {id: id}
       })
+
+    },
+    destroy(id) {
+
+      this.msgBoxAjax("提示", "确定删除吗？", "/admin/rule/destroy/" + id).then((re) => {
+
+        if (re.code === 1) {
+
+          this.getList();
+        }
+
+      })
+
+    },
+    next(page) {
+
+
+      this.routerSearch(this, {
+        p: page
+      });
+
 
     }
 
   },
-  created(){
+  created() {
 
     this.getList()
   }

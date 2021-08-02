@@ -13,6 +13,10 @@ const routes = [
                 path: 'rule_list',
                 component: () => import('../components/admin/rule_list.vue')
             },
+            {
+                path: 'role_edit',
+                component: () => import('../components/admin/role_edit.vue')
+            },
         ]
     },
     {

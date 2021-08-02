@@ -303,17 +303,23 @@ const common=(app,store)=>{
      */
     app.config.globalProperties.routerSearch = function(context, query, rememberQuery = true) {
 
-        let c = app.config.globalProperties.$AppContext;
+        // let c = app.config.globalProperties.$AppContext;
 
-        let path = c.$route.path;
+        let path = context.$route.path;
 
-        let pathTemp = c.cloneObj(path);
 
-        let temp = c.$route.query;
 
-        let queryTemp = c.cloneObj(temp);
+        let pathTemp = context.cloneObj(path);
+        //
+        let temp = context.$route.query;
 
-        let oldQuery = c.cloneObj(temp);
+
+
+        // let queryTemp = app.config.globalProperties.cloneObj(temp);
+
+        let oldQuery = app.config.globalProperties.cloneObj(temp);
+
+
 
         let str = '?';
 
@@ -359,9 +365,19 @@ const common=(app,store)=>{
 
         str = str + '&random=' + Math.random();
 
-        c.$router.push(pathTemp + str);
+        console.log(path+str)
 
-        c.reloads();
+
+
+        context.$AppContext.$router.push(pathTemp+str).then(()=>{
+
+            context.$AppContext.reload()
+        })
+
+
+
+
+
 
 
     }

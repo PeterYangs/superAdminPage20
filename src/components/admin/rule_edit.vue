@@ -8,16 +8,16 @@
       </template>
       <div>
 
-        <el-form style="width: 40%" label-width="80px" :model="item">
+        <el-form style="width: 40%" label-width="80px" :model="item" ref="formName">
 
-          <el-form-item label="描述">
+          <el-form-item label="描述" required prop="title">
 
             <el-input placeholder="描述" v-model="item.title"></el-input>
 
           </el-form-item>
 
 
-          <el-form-item label="路由规则">
+          <el-form-item label="路由规则" required prop="rule">
 
             <el-input placeholder="路由规则" v-model="item.rule"></el-input>
 
@@ -49,53 +49,60 @@ export default {
   data() {
 
     return {
-      item:{
-        title:"",
-        rule:"",
-        group_name:"",
-        id:""
+      item: {
+        title: "",
+        rule: "",
+        group_name: "",
+        id: ""
       }
     }
   },
-  methods:{
+  methods: {
 
-    update(){
-
-
-      this.msgBoxAjax("提示","确认提交吗？","/admin/rule/update",this.item).then((re)=>{
+    update() {
 
 
-        // if (re.code)
 
-        // ElMessage.error(re.msg);
+      this.$refs['formName'].validate((valid) => {
+        if (valid) {
 
-        if (re.code===1){
+          this.msgBoxAjax("提示", "确认提交吗？", "/admin/rule/update", this.item).then((re) => {
 
-          this.$router.go(-1);
+
+            if (re.code === 1) {
+
+              this.$router.go(-1);
+            }
+
+          })
+
+        } else {
+          console.log('error submit!!');
+          return false;
         }
+      });
 
-      })
 
     },
-    detail(id){
+    detail(id) {
 
 
       this.httpGet({
-        url:"/admin/rule/detail/"+id
-      }).then((re)=>{
+        url: "/admin/rule/detail/" + id
+      }).then((re) => {
 
-        this.setItem(this.item,re.data);
+        this.setItem(this.item, re.data);
 
       })
 
     }
 
   },
-  created(){
+  created() {
 
-    let id =this.$route.query.id;
+    let id = this.$route.query.id;
 
-    if (id){
+    if (id&&id!=0) {
 
       this.detail(id);
     }
