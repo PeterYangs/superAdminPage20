@@ -428,9 +428,9 @@ const common=(app,store)=>{
                         instance.confirmButtonLoading = true;
                         instance.confirmButtonText = '执行中...';
 
-                        app.config.globalProperties.httpGet({
+                        app.config.globalProperties.httpPost({
                             url: url,
-                            params: data
+                            data: data
                         }).then((re) => {
                             // console.log(re);
                             done();

@@ -6,7 +6,7 @@
           <template #title><i class="el-icon-message"></i>管理员</template>
 
             <el-menu-item index="1-1" @click="toPath('/main/rule_list')">规则列表</el-menu-item>
-            <el-menu-item index="1-2">选项2</el-menu-item>
+            <el-menu-item index="1-2" @click="toPath('/main/role_list')">角色列表</el-menu-item>
 
 
 

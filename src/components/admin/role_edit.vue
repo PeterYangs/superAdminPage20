@@ -10,48 +10,29 @@
 
         <el-form label-width="80px" :model="item" ref="ruleForm" class="super-admin-form">
 
-          <el-form-item label="角色名称" prop='name' required>
+          <el-form-item label="角色名称" prop='title' required>
 
-            <el-input placeholder="角色名称" v-model="item.name"></el-input>
+            <el-input placeholder="角色名称" v-model="item.title"></el-input>
 
           </el-form-item>
 
           <el-divider></el-divider>
 
 
-          <el-form-item label="规则选择" >
+          <el-form-item label="规则选择" prop="rules" required>
             <br/>
 
-            <div>文章管理</div>
+            <template v-for="(v,i) in list">
+              <div>{{ i }}</div>
 
-            <el-checkbox-group v-model="item.rules">
-
-
-              <el-checkbox :label="1">备选项</el-checkbox>
-              <el-checkbox :label="2">备选项</el-checkbox>
-              <el-checkbox :label="3">备选项</el-checkbox>
-              <el-checkbox :label="4">备选项</el-checkbox>
-              <el-checkbox :label="5">备选项</el-checkbox>
-              <el-checkbox :label="6">备选项</el-checkbox>
-              <el-checkbox :label="7">备选项</el-checkbox>
+              <el-checkbox-group v-model="item.rules">
 
 
-            </el-checkbox-group>
+                <el-checkbox v-for="vv in v" :label="vv.id">{{ vv.title }}</el-checkbox>
 
 
-            <div>xx管理</div>
-
-            <el-checkbox-group v-model="item.rules">
-
-
-              <el-checkbox :label="8">备选项</el-checkbox>
-              <el-checkbox :label="9">备选项</el-checkbox>
-              <el-checkbox :label="10">备选项</el-checkbox>
-
-
-
-            </el-checkbox-group>
-
+              </el-checkbox-group>
+            </template>
 
 
           </el-form-item>
@@ -76,9 +57,11 @@ export default {
 
     return {
       item: {
-        name: "",
-        rules: []
-      }
+        title: "",
+        rules: [],
+        id: 0
+      },
+      list: []
     }
   },
   methods: {
@@ -89,7 +72,7 @@ export default {
       this.$refs['ruleForm'].validate((valid) => {
         if (valid) {
 
-          this.msgBoxAjax("提示", "确认提交吗？", "/admin/rule/update", this.item).then((re) => {
+          this.msgBoxAjax("提示", "确认提交吗？", "/admin/role/update", this.item).then((re) => {
 
             if (re.code === 1) {
 
@@ -111,7 +94,7 @@ export default {
 
 
       this.httpGet({
-        url: "/admin/rule/detail/" + id
+        url: "/admin/role/detail/" + id
       }).then((re) => {
 
         this.setItem(this.item, re.data);
@@ -119,12 +102,14 @@ export default {
       })
 
     },
-    getRuleList(){
+    getRuleList() {
 
 
       this.httpGet({
-        url:"/admin/role/GetRuleList"
-      }).then((re)=>{
+        url: "/admin/role/GetRuleList"
+      }).then((re) => {
+
+        this.list = re.data;
 
       })
 
@@ -137,8 +122,7 @@ export default {
     let id = this.$route.query.id;
 
 
-
-    if (id) {
+    if (id && id != 0) {
 
       this.detail(id);
     }

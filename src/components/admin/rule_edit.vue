@@ -53,14 +53,13 @@ export default {
         title: "",
         rule: "",
         group_name: "",
-        id: ""
+        id: 0
       }
     }
   },
   methods: {
 
     update() {
-
 
 
       this.$refs['formName'].validate((valid) => {
@@ -102,7 +101,7 @@ export default {
 
     let id = this.$route.query.id;
 
-    if (id&&id!=0) {
+    if (id && id != 0) {
 
       this.detail(id);
     }

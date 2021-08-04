@@ -17,6 +17,19 @@ const routes = [
                 path: 'role_edit',
                 component: () => import('../components/admin/role_edit.vue')
             },
+            {
+                path: 'role_list',
+                component: () => import('../components/admin/role_list.vue')
+            },
+
+            {
+                path: 'admin_edit',
+                component: () => import('../components/admin/admin_edit.vue')
+            },
+            {
+                path: 'admin_list',
+                component: () => import('../components/admin/admin_list.vue')
+            },
         ]
     },
     {
