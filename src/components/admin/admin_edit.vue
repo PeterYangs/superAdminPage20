@@ -27,8 +27,10 @@
           <el-form-item label="角色" prop="role_id" required>
 
             <el-select v-model="item.role_id" placeholder="请选择">
+              <el-option :label="'超级管理员'" :value="0"></el-option>
               <el-option v-for="item in role_list" :key="item.id" :label="item.title" :value="item.id">
               </el-option>
+
             </el-select>
 
           </el-form-item>
@@ -72,8 +74,8 @@ export default {
         password: "",
         repassword: "",
         email: "",
-        role_id: "",
-        id: 0
+        role_id:0,
+        id:0
 
       },
       role_list: [],

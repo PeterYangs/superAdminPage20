@@ -7,6 +7,7 @@
 
             <el-menu-item index="1-1" @click="toPath('/main/rule_list')">规则列表</el-menu-item>
             <el-menu-item index="1-2" @click="toPath('/main/role_list')">角色列表</el-menu-item>
+            <el-menu-item index="1-3" @click="toPath('/main/admin_list')">管理员列表</el-menu-item>
 
 
 

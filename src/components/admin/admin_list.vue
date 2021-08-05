@@ -10,12 +10,23 @@
 
       <div>
 
-        <el-button type="success" @click="edit(0)">添加规则</el-button>
+        <el-button type="success" @click="edit(0)">添加管理员</el-button>
         <el-table :data="list.data" style="width: 100%">
           <el-table-column prop="id" label="Id">
           </el-table-column>
 
           <el-table-column prop="username" label="用户名">
+          </el-table-column>
+
+          <el-table-column prop="role_detail.role.title" label="角色">
+
+            <template v-slot="item">
+
+              <span v-if="getObj(item.row,'role_detail.role_id')===0">超级管理员</span>
+              <span v-else>{{getObj(item.row,'role_detail.role.title')}}</span>
+
+            </template>
+
           </el-table-column>
 
 
