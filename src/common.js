@@ -1,11 +1,11 @@
 import env from './env.js'
 import axios from 'axios'
 import router from './router'
-import { ElMessage } from 'element-plus'
+import {ElMessage} from 'element-plus'
 
-const common=(app,store)=>{
+const common = (app, store) => {
 
-    app.config.globalProperties.test=function (){
+    app.config.globalProperties.test = function () {
 
 
         console.log('test')
@@ -13,7 +13,7 @@ const common=(app,store)=>{
     }
 
 
-    app.config.globalProperties.store=function (){
+    app.config.globalProperties.store = function () {
 
 
         console.log(store.state.count)
@@ -24,13 +24,12 @@ const common=(app,store)=>{
     // app.config.globalProperties.http
 
 
-
     //公共函数
 //-----------------------------------------------------------------------------------------------
     /**
      * 判断运行环境
      */
-    app.config.globalProperties.isDev = function() {
+    app.config.globalProperties.isDev = function () {
 
         if (process.env.NODE_ENV == 'development') return true;
 
@@ -41,7 +40,7 @@ const common=(app,store)=>{
     /**
      * 获取api域名
      */
-    app.config.globalProperties.getHost = function() {
+    app.config.globalProperties.getHost = function () {
 
         // return process.env.HOST;
 
@@ -59,7 +58,7 @@ const common=(app,store)=>{
      * 公共请求方法
      * @param {Object} params
      */
-    app.config.globalProperties.httpCommon = function(params) {
+    app.config.globalProperties.httpCommon = function (params) {
 
         params.baseURL = app.config.globalProperties.getHost();
 
@@ -96,6 +95,13 @@ const common=(app,store)=>{
 
                 if (res.data.code >= 51 && res.data.code <= 100) {
 
+                    this.$notify({
+                        title: '错误',
+                        message: res.data.msg,
+                        position: 'bottom-right',
+                        type: 'error'
+                    });
+
                     reject(res.data);
 
                     return false;
@@ -103,34 +109,40 @@ const common=(app,store)=>{
                 }
 
 
-                //是否显示错误信息提示，一般返回code为1是成功，其他是失败
-                if (params.showMessage === true) {
-
-                    if (res.data.code == 1) {
-
-                        resolve(res.data);
-
-                    }else{
-
-                        this.$notify({
-                            title: '错误',
-                            message: res.data.msg,
-                            position: 'bottom-right',
-                            type: 'error'
-                        });
+                resolve(res.data);
 
 
-                        reject(res.data);
+                // //是否显示错误信息提示，一般返回code为1是成功，其他是失败
+                // if (params.showMessage === true) {
+                //
+                //     if (res.data.code == 1) {
+                //
+                //         resolve(res.data);
+                //
+                //     }else{
+                //
+                //         this.$notify({
+                //             title: '错误',
+                //             message: res.data.msg,
+                //             position: 'bottom-right',
+                //             type: 'error'
+                //         });
+                //
+                //
+                //         reject(res.data);
+                //
+                //
+                //
+                //     }
+                //
+                // } else {
+                //
+                //
+                // }
 
+            }).catch((err) => {
 
-
-                    }
-
-                } else {
-
-                    resolve(res.data);
-                }
-
+                reject(err)
             });
 
         });
@@ -141,7 +153,7 @@ const common=(app,store)=>{
      * get请求，数据用params
      * @param {Object} params
      */
-    app.config.globalProperties.httpGet = function(params) {
+    app.config.globalProperties.httpGet = function (params) {
 
 
         params.method = 'get';
@@ -163,7 +175,7 @@ const common=(app,store)=>{
      * post请求，数据用data
      * @param {Object} params
      */
-    app.config.globalProperties.httpPost = function(params) {
+    app.config.globalProperties.httpPost = function (params) {
 
 
         params.method = 'post';
@@ -187,7 +199,7 @@ const common=(app,store)=>{
     /**
      * 本地储存
      */
-    app.config.globalProperties.localSet = function(key, value, prefix = 'super_admin_') {
+    app.config.globalProperties.localSet = function (key, value, prefix = 'super_admin_') {
 
         localStorage.setItem(prefix + key, value);
 
@@ -197,7 +209,7 @@ const common=(app,store)=>{
     /**
      * 本地储存获取
      */
-    app.config.globalProperties.localGet = function(key, defaultValue = '', prefix = 'super_admin_') {
+    app.config.globalProperties.localGet = function (key, defaultValue = '', prefix = 'super_admin_') {
 
         let re = localStorage.getItem(prefix + key);
 
@@ -210,7 +222,7 @@ const common=(app,store)=>{
     /**
      * 删除
      */
-    app.config.globalProperties.localRemove = function(key, prefix = 'super_admin_') {
+    app.config.globalProperties.localRemove = function (key, prefix = 'super_admin_') {
 
         localStorage.removeItem(prefix + key);
 
@@ -221,7 +233,7 @@ const common=(app,store)=>{
      * 克隆对象
      * @param {Object} object
      */
-    app.config.globalProperties.cloneObj = function(object) {
+    app.config.globalProperties.cloneObj = function (object) {
 
         return JSON.parse(JSON.stringify(object))
     }
@@ -232,7 +244,7 @@ const common=(app,store)=>{
      * @param {Object} defaultItem
      * @param {Object} item
      */
-    app.config.globalProperties.setItem = function(defaultItem, item) {
+    app.config.globalProperties.setItem = function (defaultItem, item) {
 
         // console.log(item);
         for (let key in defaultItem) {
@@ -240,7 +252,7 @@ const common=(app,store)=>{
             // console.log(item[key]);
 
             // console.log(typeof(item[key]));
-            if (!(typeof(item[key]) == 'undefined')) {
+            if (!(typeof (item[key]) == 'undefined')) {
 
                 // console.log(item[key]);
                 defaultItem[key] = item[key];
@@ -250,9 +262,7 @@ const common=(app,store)=>{
     }
 
 
-
-
-    app.config.globalProperties.messageCommon = function(title, message, type) {
+    app.config.globalProperties.messageCommon = function (title, message, type) {
 
         return new Promise((success, fail) => {
 
@@ -273,7 +283,7 @@ const common=(app,store)=>{
     }
 
 
-    app.config.globalProperties.messageSuccess = function(title, message) {
+    app.config.globalProperties.messageSuccess = function (title, message) {
 
 
         return new Promise((success, fail) => {
@@ -301,12 +311,11 @@ const common=(app,store)=>{
      * @param query    传递参数
      * @param rememberQuery 是否保存其他参数
      */
-    app.config.globalProperties.routerSearch = function(context, query, rememberQuery = true) {
+    app.config.globalProperties.routerSearch = function (context, query, rememberQuery = true) {
 
         // let c = app.config.globalProperties.$AppContext;
 
         let path = context.$route.path;
-
 
 
         let pathTemp = context.cloneObj(path);
@@ -314,15 +323,12 @@ const common=(app,store)=>{
         let temp = context.$route.query;
 
 
-
         // let queryTemp = app.config.globalProperties.cloneObj(temp);
 
         let oldQuery = app.config.globalProperties.cloneObj(temp);
 
 
-
         let str = '?';
-
 
 
         for (let key in query) {
@@ -365,19 +371,13 @@ const common=(app,store)=>{
 
         str = str + '&random=' + Math.random();
 
-        console.log(path+str)
+        console.log(path + str)
 
 
-
-        context.$AppContext.$router.push(pathTemp+str).then(()=>{
+        context.$AppContext.$router.push(pathTemp + str).then(() => {
 
             context.$AppContext.reload()
         })
-
-
-
-
-
 
 
     }
@@ -406,7 +406,7 @@ const common=(app,store)=>{
      * @param data 请求数据
      *
      */
-    app.config.globalProperties.msgBoxAjax = function(title, message, url, data = {}, customClass = 'custom-class') {
+    app.config.globalProperties.msgBoxAjax = function (title, message, url, data = {}, customClass = 'custom-class') {
 
         return new Promise((success, fail) => {
 
@@ -438,18 +438,16 @@ const common=(app,store)=>{
                             instance.confirmButtonLoading = false;
 
 
-
                             i.responseData = re;
 
-                            if (re.code!==1){
+                            if (re.code !== 1) {
 
                                 ElMessage.error({
-                                    message:re.msg,
-                                    duration:5000
+                                    message: re.msg,
+                                    duration: 5000
                                 });
 
                             }
-
 
 
                         }).catch(() => {
@@ -486,7 +484,6 @@ const common=(app,store)=>{
     }
 
 
-
     /**
      * 弹窗+ajax请求+自动显示错误弹窗
      *
@@ -496,7 +493,7 @@ const common=(app,store)=>{
      * @param data 请求数据
      *
      */
-    app.config.globalProperties.msgBoxAjaxWithMessage = function(title, message, url, data = {}, customClass = 'custom-class') {
+    app.config.globalProperties.msgBoxAjaxWithMessage = function (title, message, url, data = {}, customClass = 'custom-class') {
 
         return new Promise((success, fail) => {
 
@@ -521,7 +518,7 @@ const common=(app,store)=>{
                         this.httpPost({
                             url: url,
                             data: data,
-                            showMessage:true
+                            showMessage: true
                         }).then((re) => {
                             // console.log(re);
                             done();
@@ -529,9 +526,7 @@ const common=(app,store)=>{
                             instance.confirmButtonLoading = false;
 
 
-
                             i.responseData = re;
-
 
 
                         }).catch(() => {
@@ -568,11 +563,7 @@ const common=(app,store)=>{
     }
 
 
-
-
-
-
-    app.config.globalProperties.getEnv = function(key) {
+    app.config.globalProperties.getEnv = function (key) {
 
         if (app.config.globalProperties.isDev()) return env['dev'][key];
 
@@ -582,7 +573,7 @@ const common=(app,store)=>{
     /**
      * 获取图片域名
      */
-    app.config.globalProperties.getImgPrefix = function() {
+    app.config.globalProperties.getImgPrefix = function () {
 
         return app.config.globalProperties.getHost() + '/uploads/';
     }
@@ -591,7 +582,7 @@ const common=(app,store)=>{
      * 重置对象
      * @param {Object} obj
      */
-    app.config.globalProperties.resetObj = function(obj) {
+    app.config.globalProperties.resetObj = function (obj) {
 
         for (let i in obj) {
 
@@ -639,14 +630,13 @@ const common=(app,store)=>{
                     obj[i] = '';
 
 
-
             }
 
         }
     }
 
 
-    app.config.globalProperties.uploadFile = function(event,params={}) {
+    app.config.globalProperties.uploadFile = function (event, params = {}) {
 
 
         return new Promise((success, fail) => {
@@ -664,9 +654,9 @@ const common=(app,store)=>{
             }
 
             //额外参数
-            for(let i in params){
+            for (let i in params) {
 
-                form.append(i,params[i]);
+                form.append(i, params[i]);
 
             }
 
@@ -686,22 +676,15 @@ const common=(app,store)=>{
                 }
 
 
-
-
-
-
             });
 
         });
 
 
-
-
     }
 
 
-    app.config.globalProperties.getObj = function(obj, attr, defaultValue = '') {
-
+    app.config.globalProperties.getObj = function (obj, attr, defaultValue = '') {
 
 
         try {
