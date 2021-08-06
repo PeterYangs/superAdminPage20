@@ -27,7 +27,8 @@ export default {
 
       // this.show=true
 
-    }
+    },
+
 
   },
   data() {
@@ -38,6 +39,8 @@ export default {
   created() {
 
     this.$app.config.globalProperties.$AppContext = this;
+
+    // this.info()
 
   },
 
