@@ -1,6 +1,12 @@
 import {createRouter, createWebHistory} from 'vue-router'
 
 const routes = [
+
+    {
+        path: '/',
+        name: 'Index',
+        redirect:{name:'admin_list'}
+    },
     {
         path: '/main',
         component: () => import('../components/Main.vue'),
@@ -28,7 +34,8 @@ const routes = [
             },
             {
                 path: 'admin_list',
-                component: () => import('../components/admin/admin_list.vue')
+                component: () => import('../components/admin/admin_list.vue'),
+                name:"admin_list"
             },
         ]
     },

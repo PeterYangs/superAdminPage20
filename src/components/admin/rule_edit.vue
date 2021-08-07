@@ -19,7 +19,9 @@
 
           <el-form-item label="路由规则" required prop="rule">
 
-            <el-input placeholder="路由规则" v-model="item.rule"></el-input>
+<!--            <el-input placeholder="路由规则" v-model="item.rule"></el-input>-->
+
+            <el-autocomplete placeholder="路由规则" v-model="item.rule" :fetch-suggestions="query"></el-autocomplete>
 
           </el-form-item>
 
@@ -91,6 +93,39 @@ export default {
       }).then((re) => {
 
         this.setItem(this.item, re.data);
+
+      })
+
+    },
+    query(keyword,cb){
+
+      // console.log(keyword)
+
+      if (keyword===""){
+
+        cb([])
+
+        return
+
+      }
+
+      this.httpGet({
+        url:"/admin/admin/SearchRule",
+        params:{
+          keyword:keyword
+        }
+      }).then((re)=>{
+
+        // console.log(re)
+
+        let temp=[];
+
+        for (let i in re.data){
+
+          temp.push({value:re.data[i].rule})
+        }
+
+        cb(temp)
 
       })
 
