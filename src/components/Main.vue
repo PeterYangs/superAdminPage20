@@ -7,16 +7,20 @@
       </div>
 
       <el-divider style="margin: 10px 0;"></el-divider>
-      <el-menu :default-openeds="['1', '3']" background-color="#191A23" text-color="#fff" active-text-color="#ffd04b">
-        <el-submenu index="1">
-          <template #title><i class="el-icon-message"></i>管理员</template>
+      <el-menu :default-openeds="[0]" background-color="#191A23" text-color="#fff" active-text-color="#ffd04b">
 
-          <el-menu-item index="1-1" @click="toPath('/main/rule_list')">规则列表</el-menu-item>
-          <el-menu-item index="1-2" @click="toPath('/main/role_list')">角色列表</el-menu-item>
-          <el-menu-item index="1-3" @click="toPath('/main/admin_list')">管理员列表</el-menu-item>
+
+        <el-submenu v-for="(v,i) in menuTree" :index="i">
+          <template #title><i class="el-icon-message"></i>{{v.title}}</template>
+
+          <el-menu-item v-for="(vv,ii) in v.children" :index="i+'-'+ii" @click="toPath(vv.path)">{{vv.title}}</el-menu-item>
+<!--          <el-menu-item index="1-2" @click="toPath('/main/role_list')">角色列表</el-menu-item>-->
+<!--          <el-menu-item index="1-3" @click="toPath('/main/admin_list')">管理员列表</el-menu-item>-->
 
 
         </el-submenu>
+
+
 
       </el-menu>
     </el-aside>
@@ -57,7 +61,8 @@ export default {
       tableData: Array(20).fill(item),
       info: {
         username: ""
-      }
+      },
+      menu: []
     }
   },
   methods: {
@@ -75,6 +80,18 @@ export default {
         this.info = re.data;
 
       })
+    },
+    getMenu() {
+
+      this.httpPost({
+        url: "/admin/menu/list",
+        loading: true,
+      }).then((re) => {
+
+        this.menu = re.data;
+
+      })
+
     }
 
   },
@@ -82,6 +99,32 @@ export default {
 
     this.getInfo()
 
+    this.getMenu()
+
+  },
+  computed: {
+    menuTree() {
+      let result = []
+      if (!Array.isArray(this.menu)) {
+        return result
+      }
+      this.menu.forEach(item => {
+        delete item.children;
+      });
+      let map = {};
+      this.menu.forEach(item => {
+        map[item.id] = item;
+      });
+      this.menu.forEach(item => {
+        let parent = map[item.pid];
+        if (parent) {
+          (parent.children || (parent.children = [])).push(item);
+        } else {
+          result.push(item);
+        }
+      });
+      return result;
+    }
   }
 
 };

@@ -37,6 +37,17 @@ const routes = [
                 component: () => import('../components/admin/admin_list.vue'),
                 name:"admin_list"
             },
+            {
+                path: 'menu_edit',
+                component: () => import('../components/menu/menu_edit.vue'),
+
+            },
+            {
+                path: 'menu_list',
+                component: () => import('../components/menu/menu_list.vue'),
+
+            },
+
         ]
     },
     {
