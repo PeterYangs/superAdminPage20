@@ -74,6 +74,9 @@ const common = (app, store) => {
 
         }
 
+
+
+
         //废弃
         // params.headers = {
         //   'token': app.config.globalProperties.localGet('token'),
@@ -109,36 +112,34 @@ const common = (app, store) => {
                 }
 
 
-                resolve(res.data);
+
 
 
                 // //是否显示错误信息提示，一般返回code为1是成功，其他是失败
-                // if (params.showMessage === true) {
-                //
-                //     if (res.data.code == 1) {
-                //
-                //         resolve(res.data);
-                //
-                //     }else{
-                //
-                //         this.$notify({
-                //             title: '错误',
-                //             message: res.data.msg,
-                //             position: 'bottom-right',
-                //             type: 'error'
-                //         });
-                //
-                //
-                //         reject(res.data);
-                //
-                //
-                //
-                //     }
-                //
-                // } else {
-                //
-                //
-                // }
+                if (!(params.disableError === true)) {
+
+                    if (res.data.code !== 1) {
+
+                        // resolve(res.data);
+
+                        this.$notify({
+                            title: '错误',
+                            message: res.data.msg,
+                            position: 'bottom-right',
+                            type: 'error'
+                        });
+
+
+                        reject(res)
+
+                        return
+
+                    }
+
+                }
+
+
+                resolve(res.data);
 
             }).catch((err) => {
 

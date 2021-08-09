@@ -78,15 +78,11 @@ export default {
       }).then((re)=>{
 
 
-        if (re.code!==1){
-
-          this.img=this.getHost()+'/captcha/captcha?r='+Math.random();
-
-          return
-        }
-
         this.$router.push("/main/admin_list")
 
+      }).catch(()=>{
+
+        this.img=this.getHost()+'/captcha/captcha?r='+Math.random();
       })
 
     },

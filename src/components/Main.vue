@@ -7,15 +7,13 @@
       </div>
 
       <el-divider style="margin: 10px 0;"></el-divider>
-      <el-menu :default-openeds="[0]" background-color="#191A23" text-color="#fff" active-text-color="#ffd04b">
+      <el-menu v-if="showMenu" :default-openeds="index" background-color="#191A23" text-color="#fff" active-text-color="#ffd04b">
 
 
         <el-submenu v-for="(v,i) in menuTree" :index="i">
           <template #title><i class="el-icon-message"></i>{{v.title}}</template>
 
-          <el-menu-item v-for="(vv,ii) in v.children" :index="i+'-'+ii" @click="toPath(vv.path)">{{vv.title}}</el-menu-item>
-<!--          <el-menu-item index="1-2" @click="toPath('/main/role_list')">角色列表</el-menu-item>-->
-<!--          <el-menu-item index="1-3" @click="toPath('/main/admin_list')">管理员列表</el-menu-item>-->
+          <el-menu-item  :class="[$route.path===vv.path?'menu-on':'menu']"  v-for="(vv,ii) in v.children" :index="i+'-'+ii" @click="toPath(vv.path)">{{vv.title}}</el-menu-item>
 
 
         </el-submenu>
@@ -35,7 +33,7 @@
             <el-dropdown-menu>
               <!--              <el-dropdown-item>查看</el-dropdown-item>-->
               <!--              <el-dropdown-item>新增</el-dropdown-item>-->
-              <el-dropdown-item>注销</el-dropdown-item>
+              <el-dropdown-item @click="logout()">注销</el-dropdown-item>
             </el-dropdown-menu>
           </template>
         </el-dropdown>
@@ -62,7 +60,9 @@ export default {
       info: {
         username: ""
       },
-      menu: []
+      menu: [],
+      index:[],
+      showMenu:false
     }
   },
   methods: {
@@ -83,12 +83,79 @@ export default {
     },
     getMenu() {
 
-      this.httpPost({
-        url: "/admin/menu/list",
-        loading: true,
-      }).then((re) => {
 
-        this.menu = re.data;
+      return new Promise((success,fail)=>{
+
+        this.httpPost({
+          url: "/admin/menu/list",
+          loading: true,
+        }).then((re) => {
+
+          this.menu = re.data;
+
+          this.$nextTick(()=>{
+
+
+            success()
+
+          })
+
+        }).catch(()=>{
+
+          fail()
+        })
+
+
+      })
+
+
+
+
+
+    },
+    //默认展开的菜单
+    setDefaultCheck(){
+
+      let path=this.$route.path;
+
+
+      let index=0;
+
+      for (let i in this.menuTree){
+
+        for (let j in this.menuTree[i].children){
+
+
+          if (this.menuTree[i].children[j].path===path){
+
+
+
+
+            index= parseInt(i);
+
+          }
+
+        }
+
+      }
+
+
+      setTimeout(()=>{
+
+        this.index=[index];
+
+        this.showMenu=true
+
+      },100)
+
+
+
+    },
+    logout(){
+
+      this.httpPost({
+        url:"/login/logout"
+      }).then(()=>{
 
       })
 
@@ -99,7 +166,12 @@ export default {
 
     this.getInfo()
 
-    this.getMenu()
+    this.getMenu().then(()=>{
+
+      this.setDefaultCheck()
+    })
+
+
 
   },
   computed: {
@@ -139,4 +211,20 @@ export default {
 .el-aside {
   color: #333;
 }
+</style>
+
+<style scoped>
+
+.menu-on{
+
+  color: rgb(255, 208, 75) !important;
+
+}
+
+.menu{
+
+  color: #FFFFFF !important;
+
+}
+
 </style>
