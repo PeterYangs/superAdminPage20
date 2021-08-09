@@ -47,6 +47,11 @@ const routes = [
                 component: () => import('../components/menu/menu_list.vue'),
 
             },
+            {
+                path: 'category_list',
+                component: () => import('../components/category/category_list.vue'),
+
+            },
 
         ]
     },
