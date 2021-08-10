@@ -1,8 +1,8 @@
 <template>
   <div class="upload">
-    <input v-if="more===true" type="file" @change="change" multiple="multiple" />
+    <input v-if="more===true" type="file" @change="change" multiple="multiple"/>
 
-    <input v-else type="file" @change="change" />
+    <input v-else type="file" @change="change"/>
     <slot>
       <el-button type="primary" size="small">主要按钮</el-button>
     </slot>
@@ -15,8 +15,6 @@ export default {
   methods: {
 
     change(e) {
-
-      // console.log(e.target.files)
 
 
       let file = e.target.files;
@@ -33,6 +31,10 @@ export default {
       this.httpPost({
         url: "/admin/upload/upload",
         data: form
+      }).then((re) => {
+
+        this.$emit("success", re.data)
+
       })
 
 

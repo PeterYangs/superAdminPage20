@@ -574,9 +574,9 @@ const common = (app, store) => {
     /**
      * 获取图片域名
      */
-    app.config.globalProperties.getImgPrefix = function () {
+    app.config.globalProperties.getImagePath = function (path) {
 
-        return app.config.globalProperties.getHost() + '/uploads/';
+        return app.config.globalProperties.getEnv('imgHost') + '/'+path;
     }
 
     /**
