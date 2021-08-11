@@ -99,7 +99,7 @@ export default {
     },
     destroy(id) {
 
-      this.msgBoxAjax("提示", "确定删除吗？", "/admin/rule/destroy/" + id).then((re) => {
+      this.msgBoxAjax("提示", "确定删除吗？", "/admin/admin/destroy/" + id).then((re) => {
 
         if (re.code === 1) {
 

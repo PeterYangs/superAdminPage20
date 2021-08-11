@@ -12,7 +12,8 @@
 
           <el-form-item label="用户名" required prop='username'>
 
-            <el-input placeholder="用户名" v-model="item.username"></el-input>
+            <el-input v-if="item.id!==0" placeholder="用户名" v-model="item.username" :disabled="true"></el-input>
+            <el-input  v-else placeholder="用户名" v-model="item.username" ></el-input>
 
           </el-form-item>
 

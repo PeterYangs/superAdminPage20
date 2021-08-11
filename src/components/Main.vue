@@ -157,6 +157,8 @@ export default {
         url:"/login/logout"
       }).then(()=>{
 
+        this.$router.push("/login")
+
       })
 
     }
