@@ -122,7 +122,7 @@ export default {
 
         for (let i in re.data){
 
-          temp.push({value:re.data[i].rule})
+          temp.push({value:re.data[i]})
         }
 
         cb(temp)
