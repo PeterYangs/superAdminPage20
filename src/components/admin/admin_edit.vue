@@ -13,7 +13,7 @@
           <el-form-item label="用户名" required prop='username'>
 
             <el-input v-if="item.id!==0" placeholder="用户名" v-model="item.username" :disabled="true"></el-input>
-            <el-input  v-else placeholder="用户名" v-model="item.username" ></el-input>
+            <el-input v-else placeholder="用户名" v-model="item.username"></el-input>
 
           </el-form-item>
 
@@ -37,19 +37,18 @@
           </el-form-item>
 
 
-          <el-form-item label="密码" prop="password" >
+          <el-form-item label="密码" prop="password">
 
             <el-input placeholder="密码" v-model="item.password" type="password"></el-input>
 
           </el-form-item>
 
 
-          <el-form-item label="确认密码" prop="repassword" >
+          <el-form-item label="确认密码" prop="repassword">
 
             <el-input placeholder="确认密码" v-model="item.repassword" type="password"></el-input>
 
           </el-form-item>
-
 
 
           <el-form-item>
@@ -75,8 +74,8 @@ export default {
         password: "",
         repassword: "",
         email: "",
-        role_id:0,
-        id:0
+        role_id: 0,
+        id: 0
 
       },
       role_list: [],
