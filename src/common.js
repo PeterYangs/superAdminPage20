@@ -247,15 +247,11 @@ const common = (app, store) => {
      */
     app.config.globalProperties.setItem = function (defaultItem, item) {
 
-        // console.log(item);
+
         for (let key in defaultItem) {
 
-            // console.log(item[key]);
-
-            // console.log(typeof(item[key]));
             if (!(typeof (item[key]) == 'undefined')) {
 
-                // console.log(item[key]);
                 defaultItem[key] = item[key];
             }
 
