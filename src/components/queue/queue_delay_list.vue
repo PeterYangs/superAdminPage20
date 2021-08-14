@@ -4,27 +4,30 @@
     <el-card class="box-card">
       <template #header>
         <div class="card-header">
-          <span>queue_list</span>
+          <span>queue_delay_list</span>
         </div>
       </template>
 
       <div>
 
 
-        <div style="margin-bottom: 30px" @change="queueChange">
-          <el-radio-group v-model="search.queue">
-            <el-radio-button label="high"></el-radio-button>
-            <el-radio-button label="default"></el-radio-button>
-            <el-radio-button label="low"></el-radio-button>
+<!--        <div style="margin-bottom: 30px" @change="queueChange">-->
+<!--          <el-radio-group v-model="search.queue">-->
+<!--            <el-radio-button label="high"></el-radio-button>-->
+<!--            <el-radio-button label="default"></el-radio-button>-->
+<!--            <el-radio-button label="low"></el-radio-button>-->
 
-          </el-radio-group>
-        </div>
+<!--          </el-radio-group>-->
+<!--        </div>-->
 
         <el-table :data="list.data" style="width: 100%">
           <el-table-column prop="id" label="Id">
           </el-table-column>
 
           <el-table-column prop="data.TaskName" label="任务名称">
+          </el-table-column>
+
+          <el-table-column prop="time" label="执行时间">
           </el-table-column>
 
 
@@ -77,7 +80,7 @@
 
 <script>
 export default {
-  name: "queue_list",
+  name: "queue_delay_list",
   data() {
 
     return {
@@ -94,7 +97,7 @@ export default {
     getList() {
 
       this.httpPost({
-        url: "/admin/queue/list",
+        url: "/admin/queue/delay_list",
         loading: true,
         params: this.$route.query,
       }).then((re) => {

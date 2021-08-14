@@ -56,7 +56,13 @@ const routes = [
                 path: "queue_list",
                 component: () => import('../components/queue/queue_list.vue')
 
-            }
+            },
+            {
+                path: "queue_delay_list",
+                component: () => import('../components/queue/queue_delay_list.vue')
+
+            },
+
 
         ]
     },
