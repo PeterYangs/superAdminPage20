@@ -75,8 +75,6 @@ const common = (app, store) => {
         }
 
 
-
-
         //废弃
         // params.headers = {
         //   'token': app.config.globalProperties.localGet('token'),
@@ -110,9 +108,6 @@ const common = (app, store) => {
                     return false;
                     // return this.$message.error(res.data.msg);
                 }
-
-
-
 
 
                 // //是否显示错误信息提示，一般返回code为1是成功，其他是失败
@@ -310,7 +305,6 @@ const common = (app, store) => {
      */
     app.config.globalProperties.routerSearch = function (context, query, rememberQuery = true) {
 
-        // let c = app.config.globalProperties.$AppContext;
 
         let path = context.$route.path;
 
@@ -320,8 +314,6 @@ const common = (app, store) => {
         let temp = context.$route.query;
 
 
-        // let queryTemp = app.config.globalProperties.cloneObj(temp);
-
         let oldQuery = app.config.globalProperties.cloneObj(temp);
 
 
@@ -330,7 +322,7 @@ const common = (app, store) => {
 
         for (let key in query) {
 
-            if (key == 'random') continue;
+            if (key === 'random') continue;
 
             let item = query[key];
 
@@ -350,7 +342,7 @@ const common = (app, store) => {
              */
             for (let key in temp) {
 
-                if (key == 'random') continue;
+                if (key === 'random' || key ==="p") continue;
 
                 if (findIndex(query, key)) continue;
 
@@ -572,7 +564,7 @@ const common = (app, store) => {
      */
     app.config.globalProperties.getImagePath = function (path) {
 
-        return app.config.globalProperties.getEnv('imgHost') + '/'+path;
+        return app.config.globalProperties.getEnv('imgHost') + '/' + path;
     }
 
     /**

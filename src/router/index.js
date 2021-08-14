@@ -5,7 +5,7 @@ const routes = [
     {
         path: '/',
         name: 'Index',
-        redirect:{name:'admin_list'}
+        redirect: {name: 'admin_list'}
     },
     {
         path: '/main',
@@ -35,7 +35,7 @@ const routes = [
             {
                 path: 'admin_list',
                 component: () => import('../components/admin/admin_list.vue'),
-                name:"admin_list"
+                name: "admin_list"
             },
             {
                 path: 'menu_edit',
@@ -52,6 +52,11 @@ const routes = [
                 component: () => import('../components/category/category_list.vue'),
 
             },
+            {
+                path: "queue_list",
+                component: () => import('../components/queue/queue_list.vue')
+
+            }
 
         ]
     },
