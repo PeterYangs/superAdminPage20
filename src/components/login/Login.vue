@@ -1,5 +1,5 @@
 <template>
-  <el-row style="height: 100vh;width: 100vw;background-image: url('/public/img.png');background-repeat: no-repeat;background-size: 100% 100%;" justify="center" align="middle">
+  <el-row style="height: 100vh;width: 100vw;background-image: url('/img.png');background-repeat: no-repeat;background-size: 100% 100%;" justify="center" align="middle">
 
 
     <div style="width: 20vw;" class="col row-center col-center">
