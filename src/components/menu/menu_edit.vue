@@ -55,6 +55,14 @@
           </el-form-item>
 
 
+          <el-form-item label="路由规则"  prop="rule">
+
+
+            <el-autocomplete placeholder="路由规则" v-model="item.rule" :fetch-suggestions="query"></el-autocomplete>
+
+          </el-form-item>
+
+
           <el-form-item>
             <el-button type="primary" size="mini" @click="update">提交</el-button>
           </el-form-item>
@@ -78,7 +86,8 @@ export default {
         title: "",
         path: "",
         sort: 100,
-        id: 0
+        id: 0,
+        rule:""
       },
       pids: []
     }
@@ -131,6 +140,39 @@ export default {
 
       })
 
+
+    },
+    query(keyword,cb){
+
+      // console.log(keyword)
+
+      if (keyword===""){
+
+        cb([])
+
+        return
+
+      }
+
+      this.httpGet({
+        url:"/admin/admin/SearchRule",
+        params:{
+          keyword:keyword
+        }
+      }).then((re)=>{
+
+        // console.log(re)
+
+        let temp=[];
+
+        for (let i in re.data){
+
+          temp.push({value:re.data[i]})
+        }
+
+        cb(temp)
+
+      })
 
     }
 

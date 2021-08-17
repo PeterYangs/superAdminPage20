@@ -19,7 +19,6 @@
 
           <el-form-item label="路由规则" required prop="rule">
 
-<!--            <el-input placeholder="路由规则" v-model="item.rule"></el-input>-->
 
             <el-autocomplete placeholder="路由规则" v-model="item.rule" :fetch-suggestions="query"></el-autocomplete>
 
