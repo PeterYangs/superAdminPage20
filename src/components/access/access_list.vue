@@ -10,7 +10,7 @@
 
       <div>
 
-        <el-button type="success" @click="edit(0)">添加</el-button>
+<!--        <el-button type="success" @click="edit(0)">添加</el-button>-->
         <el-table :data="list.data" style="width: 100%">
           <el-table-column prop="id" label="Id">
           </el-table-column>
