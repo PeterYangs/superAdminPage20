@@ -10,7 +10,8 @@
       <el-menu v-if="showMenu" :default-openeds="index" background-color="#191A23" text-color="#fff" active-text-color="#ffd04b">
 
 
-        <el-submenu v-for="(v,i) in menuTree" :index="i">
+        <el-submenu  v-for="(v,i) in menuTree"     :index="i" >
+
           <template #title><i class="el-icon-message"></i>{{v.title}}</template>
 
           <el-menu-item  :class="[$route.path===vv.path?'menu-on':'menu']"  v-for="(vv,ii) in v.children" :index="i+'-'+ii" @click="toPath(vv.path)">{{vv.title}}</el-menu-item>
@@ -83,7 +84,7 @@ export default {
       return new Promise((success,fail)=>{
 
         this.httpPost({
-          url: "/admin/menu/list",
+          url: "/admin/admin/getMyMenu",
           loading: true,
         }).then((re) => {
 
@@ -157,6 +158,12 @@ export default {
 
       })
 
+    },
+    log(item){
+
+
+      console.log(this.getObj(item,''))
+
     }
 
   },
@@ -193,7 +200,20 @@ export default {
           result.push(item);
         }
       });
-      return result;
+
+
+      let temp=[];
+
+      for (const mapKey in result) {
+
+        if (result[mapKey].children){
+
+          temp.push(result[mapKey])
+        }
+
+      }
+
+      return temp;
     }
   }
 
