@@ -62,6 +62,11 @@ const routes = [
                 component: () => import('../components/queue/queue_delay_list.vue')
 
             },
+            {
+                path: "access_list",
+                component: () => import('../components/access/access_list.vue')
+
+            },
 
 
         ]
