@@ -25,6 +25,10 @@
           <el-table-column prop="created_at" label="时间">
           </el-table-column>
 
+
+          <el-table-column prop="admin_id" label="管理员id">
+          </el-table-column>
+
           <el-table-column label="操作">
 
             <template v-slot="item">
