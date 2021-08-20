@@ -3,7 +3,7 @@
     <el-aside width="300px" style="background-color: #191A23;box-shadow: rgb(0 21 41 / 35%) 2px 0px 6px;">
 
       <div class="row col row-center col-center" style="margin-top: 15px">
-        <h1 style="color: #fff">SuperAdmin</h1>
+        <h1 style="color: #fff" @click="$router.push('/main/home')" class="pointer">SuperAdmin</h1>
       </div>
 
       <el-divider style="margin: 10px 0;"></el-divider>
@@ -243,6 +243,11 @@ export default {
 
   color: #FFFFFF !important;
 
+}
+
+
+.pointer {
+  cursor: pointer;
 }
 
 </style>

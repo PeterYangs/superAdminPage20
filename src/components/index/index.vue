@@ -3,39 +3,13 @@
     <el-card class="box-card">
       <template #header>
         <div class="card-header">
-          <span>规则编辑</span>
+          <span>主页</span>
         </div>
       </template>
       <div>
 
-        <el-form style="width: 40%" label-width="80px" :model="item">
 
-          <el-form-item label="描述">
-
-            <el-input placeholder="描述" v-model="item.title"></el-input>
-
-          </el-form-item>
-
-
-          <el-form-item label="路由规则">
-
-            <el-input placeholder="路由规则" v-model="item.rule"></el-input>
-
-          </el-form-item>
-
-
-          <el-form-item label="分组名称">
-
-            <el-input placeholder="分组名称" v-model="item.group_name"></el-input>
-
-          </el-form-item>
-
-
-          <el-form-item>
-            <el-button type="primary" size="mini">提交</el-button>
-          </el-form-item>
-
-        </el-form>
+        <highcharts :options="options"></highcharts>
 
 
       </div>
@@ -44,6 +18,7 @@
 </template>
 
 <script>
+// import Highcharts from 'highcharts'
 export default {
   name: "index",
   data() {
@@ -53,7 +28,29 @@ export default {
         title:"",
         rule:"",
         group_name:""
-      }
+      },
+     options:{
+       title: {
+         text: '对数折线图'
+       },
+       xAxis: {
+         type: 'logarithmic',
+         tickInterval: 1
+       },
+       yAxis: {
+         type: 'logarithmic',
+         minorTickInterval: 0.1
+       },
+       tooltip: {
+         headerFormat: '<b>{series.name}</b><br />',
+         pointFormat: 'x = {point.x}, y = {point.y}'
+       },
+       series: [{
+         data: [1, 2, 4, 8, 16, 32, 64, 128, 256, 512],
+         pointStart: 1
+       }]
+     }
+
     }
   }
 }

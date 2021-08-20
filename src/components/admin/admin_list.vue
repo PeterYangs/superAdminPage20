@@ -75,6 +75,9 @@
           </el-pagination>
         </div>
 
+
+<!--        <highcharts :options="chartOptions"></highcharts>-->
+
       </div>
 
 
@@ -97,7 +100,12 @@ export default {
         username: "",
         role_id: ""
       },
-      role_list: []
+      role_list: [],
+      // chartOptions: {
+      //   series: [{
+      //     data: [1, 2, 3] // sample data
+      //   }]
+      // }
 
     }
   },

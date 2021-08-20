@@ -5,12 +5,17 @@ const routes = [
     {
         path: '/',
         name: 'Index',
-        redirect: {name: 'admin_list'}
+        redirect: {name: 'home'}
     },
     {
         path: '/main',
         component: () => import('../components/Main.vue'),
         children: [
+            {
+                path: "home",
+                component:()=>import('../components/index/index.vue'),
+                name: "home"
+            },
             {
                 path: 'rule_edit',
                 component: () => import('../components/admin/rule_edit.vue')
