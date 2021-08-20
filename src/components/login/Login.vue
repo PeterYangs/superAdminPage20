@@ -78,7 +78,7 @@ export default {
       }).then((re)=>{
 
 
-        this.$router.push("/main/admin_list")
+        this.$router.push("/main/home")
 
       }).catch(()=>{
 
