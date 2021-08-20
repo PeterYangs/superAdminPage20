@@ -11,6 +11,24 @@
       <div>
 
         <el-button type="success" @click="edit(0)">添加管理员</el-button>
+
+
+        <search v-model="params">
+
+          <template v-slot="scope">
+
+            <el-input v-model="scope.row.username" placeholder="管理员名称" clearable></el-input>
+
+
+            <el-select v-model="scope.row.role_id" placeholder="角色" clearable>
+              <el-option label="超级管理员" value="0"></el-option>
+              <el-option v-for="(v,i) in role_list" :key="'role_list'+i" :label="v.title" :value="v.id"></el-option>
+            </el-select>
+
+          </template>
+
+        </search>
+
         <el-table :data="list.data" style="width: 100%">
           <el-table-column prop="id" label="Id">
           </el-table-column>
@@ -23,7 +41,7 @@
             <template v-slot="item">
 
               <span v-if="getObj(item.row,'role_detail.role_id')===0">超级管理员</span>
-              <span v-else>{{getObj(item.row,'role_detail.role.title')}}</span>
+              <span v-else>{{ getObj(item.row, 'role_detail.role.title') }}</span>
 
             </template>
 
@@ -66,12 +84,21 @@
 </template>
 
 <script>
+
+import Search from "../common/Search.vue";
+
 export default {
   name: "admin_list",
   data() {
 
     return {
-      list: {}
+      list: {},
+      params: {
+        username: "",
+        role_id: ""
+      },
+      role_list: []
+
     }
   },
   methods: {
@@ -117,12 +144,41 @@ export default {
       });
 
 
-    }
+    },
+    getRoleList() {
+
+      this.httpPost({
+        url: "/admin/admin/roleList",
+
+      }).then((re) => {
+
+        this.role_list = re.data;
+
+      })
+
+    },
 
   },
   created() {
 
     this.getList()
+
+    // console.log(JSON.parse(this.$route.query.params))
+
+    // if (typeof (this.$route.query.params) !== "undefined") {
+    //
+    //   this.params = JSON.parse(this.$route.query.params)
+    // }
+    // this.params=JSON.parse(this.$route.query.params)
+
+    // console.log(this.$route.query.params)
+
+    this.getRoleList()
+
+
+  },
+  components: {
+    Search
   }
 }
 </script>
