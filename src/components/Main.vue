@@ -74,6 +74,8 @@ export default {
 
       } catch (e) {
 
+        console.log(e)
+
       }
 
 
