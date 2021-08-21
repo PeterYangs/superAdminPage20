@@ -77,6 +77,10 @@
             </upload>
 
 
+
+
+
+
             <div v-if="item.img" style="margin-top: 10px">
               <el-image :src="getImagePath(item.img)" style="max-width: 200px"></el-image>
             </div>

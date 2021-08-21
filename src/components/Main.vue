@@ -1,5 +1,6 @@
 <template>
   <el-container style="height: 100vh; border: 1px">
+
     <el-aside width="300px" style="background-color: #191A23;box-shadow: rgb(0 21 41 / 35%) 2px 0px 6px;">
 
       <div class="row col row-center col-center" style="margin-top: 15px">
@@ -7,8 +8,8 @@
       </div>
 
       <el-divider style="margin: 10px 0;"></el-divider>
-      <el-menu v-if="showMenu" :default-openeds="index" background-color="#191A23" text-color="#fff"
-               active-text-color="#ffd04b">
+      <el-menu  :default-active="index" background-color="#191A23" text-color="#fff"
+                active-text-color="#ffd04b">
 
 
         <el-submenu v-for="(v,i) in menuTree" :index="i+''">
@@ -21,7 +22,6 @@
 
 
         </el-submenu>
-
 
       </el-menu>
     </el-aside>
@@ -47,6 +47,11 @@
         <router-view></router-view>
       </el-main>
     </el-container>
+
+
+
+
+
   </el-container>
 </template>
 
@@ -60,7 +65,7 @@ export default {
         username: ""
       },
       menu: [],
-      index: [],
+      // index: [],
       showMenu: false
     }
   },
@@ -120,40 +125,40 @@ export default {
 
     },
     //默认展开的菜单
-    setDefaultCheck() {
-
-      let path = this.$route.path;
-
-
-      let index = 0;
-
-      for (let i in this.menuTree) {
-
-        for (let j in this.menuTree[i].children) {
-
-
-          if (this.menuTree[i].children[j].path === path) {
-
-
-            index = parseInt(i);
-
-          }
-
-        }
-
-      }
-
-
-      setTimeout(() => {
-
-        this.index = [index + ""];
-
-        this.showMenu = true
-
-      }, 200)
-
-
-    },
+    // setDefaultCheck() {
+    //
+    //   let path = this.$route.path;
+    //
+    //
+    //   let index = 0;
+    //
+    //   for (let i in this.menuTree) {
+    //
+    //     for (let j in this.menuTree[i].children) {
+    //
+    //
+    //       if (this.menuTree[i].children[j].path === path) {
+    //
+    //
+    //         index = parseInt(i);
+    //
+    //       }
+    //
+    //     }
+    //
+    //   }
+    //
+    //
+    //   setTimeout(() => {
+    //
+    //     this.index = [index + ""];
+    //
+    //     this.showMenu = true
+    //
+    //   }, 200)
+    //
+    //
+    // },
     logout() {
 
       this.httpPost({
@@ -177,15 +182,22 @@ export default {
 
     this.getInfo()
 
-    this.getMenu().then(() => {
+    // this.getMenu().then(() => {
+    //
+    //   this.setDefaultCheck()
+    // })
 
-      this.setDefaultCheck()
-    })
-
+    this.getMenu()
 
   },
   computed: {
     menuTree() {
+
+      if (this.menu.length <= 0) {
+
+        return [];
+      }
+
       let result = []
       if (!Array.isArray(this.menu)) {
         return result
@@ -219,8 +231,63 @@ export default {
       }
 
       return temp;
+    },
+
+    index() {
+
+
+      if (this.menuTree.length <= 0) {
+
+
+        return "";
+      }
+
+
+
+      let path = this.$route.path;
+
+
+      let index = "";
+
+      for (let i in this.menuTree) {
+
+        for (let j in this.menuTree[i].children) {
+
+
+          if (this.menuTree[i].children[j].path === path) {
+
+
+            // index = parseInt(i);
+
+            return i+"-"+j
+
+
+          }
+
+        }
+
+      }
+
+
+      // setTimeout(() => {
+      //
+      //   this.index = [index + ""];
+      //
+      //   this.showMenu = true
+      //
+      // }, 200)
+
+
+      // this.showMenu = true
+
+      return ""
+
+      // return [index + ""];
+
     }
+
   }
+
 
 };
 </script>

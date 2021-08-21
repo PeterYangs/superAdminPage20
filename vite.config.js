@@ -7,4 +7,9 @@ export default defineConfig({
   optimizeDeps: {
     include: [],
   },
+  build : {
+    commonjsOptions : {
+      ignoreDynamicRequires : false
+    }
+  }
 })
