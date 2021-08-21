@@ -7,8 +7,9 @@
         <h1 style="color: #fff" @click="$router.push('/main/home')" class="pointer">SuperAdmin</h1>
       </div>
 
+
       <el-divider style="margin: 10px 0;"></el-divider>
-      <el-menu  :default-active="index" background-color="#191A23" text-color="#fff"
+      <el-menu v-if="showMenu"  :default-active="index" background-color="#191A23" text-color="#fff"
                 active-text-color="#ffd04b">
 
 
@@ -51,7 +52,6 @@
 
 
 
-
   </el-container>
 </template>
 
@@ -66,7 +66,7 @@ export default {
       },
       menu: [],
       // index: [],
-      showMenu: false
+      // showMenu: false
     }
   },
   methods: {
@@ -124,41 +124,6 @@ export default {
 
 
     },
-    //默认展开的菜单
-    // setDefaultCheck() {
-    //
-    //   let path = this.$route.path;
-    //
-    //
-    //   let index = 0;
-    //
-    //   for (let i in this.menuTree) {
-    //
-    //     for (let j in this.menuTree[i].children) {
-    //
-    //
-    //       if (this.menuTree[i].children[j].path === path) {
-    //
-    //
-    //         index = parseInt(i);
-    //
-    //       }
-    //
-    //     }
-    //
-    //   }
-    //
-    //
-    //   setTimeout(() => {
-    //
-    //     this.index = [index + ""];
-    //
-    //     this.showMenu = true
-    //
-    //   }, 200)
-    //
-    //
-    // },
     logout() {
 
       this.httpPost({
@@ -178,7 +143,7 @@ export default {
     }
 
   },
-  created() {
+  mounted() {
 
     this.getInfo()
 
@@ -283,6 +248,13 @@ export default {
       return ""
 
       // return [index + ""];
+
+    },
+    showMenu(){
+
+      return this.menu.length > 0;
+
+
 
     }
 

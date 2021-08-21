@@ -20,7 +20,7 @@
 
             <template v-slot="item">
 
-              <span v-for="v in parseInt(item.row.lv)-1" :key="v+'p'">&nbsp;&nbsp;&nbsp;&nbsp;</span>
+              <span v-for="v in lv(item.row.lv)" :key="v+'p'">&nbsp;&nbsp;&nbsp;&nbsp;</span>
 
               <span v-if="item.row.lv>1">├</span>
 
@@ -237,6 +237,18 @@ export default {
       this.item.pid = pid
 
       this.item.lv = lv
+
+    },
+    lv(lv){
+
+      // console.log(lv)
+
+      if (typeof(lv) == "undefined")
+      {
+        return 0;
+      }
+
+      return parseInt(lv)-1;
 
     }
 
