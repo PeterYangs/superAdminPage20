@@ -20,7 +20,7 @@
 
             <template v-slot="item">
 
-              <span v-for="v in (item.row.lv-1)">&nbsp;&nbsp;&nbsp;&nbsp;</span>
+              <span v-for="v in parseInt(item.row.lv)-1" :key="v+'p'">&nbsp;&nbsp;&nbsp;&nbsp;</span>
 
               <span v-if="item.row.lv>1">├</span>
 

@@ -10,7 +10,7 @@
       <el-menu v-if="showMenu" :default-openeds="index" background-color="#191A23" text-color="#fff" active-text-color="#ffd04b">
 
 
-        <el-submenu  v-for="(v,i) in menuTree"     :index="i" >
+        <el-submenu  v-for="(v,i) in menuTree"     :index="i+''" >
 
           <template #title><i class="el-icon-message"></i>{{v.title}}</template>
 
@@ -139,11 +139,11 @@ export default {
 
       setTimeout(()=>{
 
-        this.index=[index];
+        this.index=[index+""];
 
         this.showMenu=true
 
-      },100)
+      },200)
 
 
 

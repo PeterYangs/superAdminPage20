@@ -14,18 +14,22 @@
 <script>
 export default {
   name: "Search",
-  methods:{
-    search(){
+  methods: {
+    search() {
 
       this.routerSearch(this, {params: encodeURIComponent(JSON.stringify(this.modelValue))});
 
     }
   },
-  props:{
+  props: {
 
     modelValue: {
-      type: [String, Number],
-      default: ""
+      type: Object,
+      default: function () {
+
+        return {}
+
+      }
     }
 
   },
@@ -39,7 +43,7 @@ export default {
     }
 
   },
-  created(){
+  created() {
 
     if (typeof (this.$route.query.params) !== "undefined") {
 
