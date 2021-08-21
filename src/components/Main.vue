@@ -7,18 +7,20 @@
       </div>
 
       <el-divider style="margin: 10px 0;"></el-divider>
-      <el-menu v-if="showMenu" :default-openeds="index" background-color="#191A23" text-color="#fff" active-text-color="#ffd04b">
+      <el-menu v-if="showMenu" :default-openeds="index" background-color="#191A23" text-color="#fff"
+               active-text-color="#ffd04b">
 
 
-        <el-submenu  v-for="(v,i) in menuTree"     :index="i+''" >
+        <el-submenu v-for="(v,i) in menuTree" :index="i+''">
 
-          <template #title><i class="el-icon-message"></i>{{v.title}}</template>
+          <template #title><i class="el-icon-message"></i>{{ v.title }}</template>
 
-          <el-menu-item  :class="[$route.path===vv.path?'menu-on':'menu']"  v-for="(vv,ii) in v.children" :index="i+'-'+ii" @click="toPath(vv.path)">{{vv.title}}</el-menu-item>
+          <el-menu-item :class="[$route.path===vv.path?'menu-on':'menu']" v-for="(vv,ii) in v.children"
+                        :index="i+'-'+ii" @click="toPath(vv.path)">{{ vv.title }}
+          </el-menu-item>
 
 
         </el-submenu>
-
 
 
       </el-menu>
@@ -58,15 +60,23 @@ export default {
         username: ""
       },
       menu: [],
-      index:[],
-      showMenu:false
+      index: [],
+      showMenu: false
     }
   },
   methods: {
 
     toPath(url) {
 
-      this.$router.push(url)
+      try {
+
+        this.$router.push(url)
+
+      } catch (e) {
+
+      }
+
+
     },
     getInfo() {
 
@@ -81,7 +91,7 @@ export default {
     getMenu() {
 
 
-      return new Promise((success,fail)=>{
+      return new Promise((success, fail) => {
 
         this.httpPost({
           url: "/admin/admin/getMyMenu",
@@ -90,14 +100,14 @@ export default {
 
           this.menu = re.data;
 
-          this.$nextTick(()=>{
+          this.$nextTick(() => {
 
 
             success()
 
           })
 
-        }).catch(()=>{
+        }).catch(() => {
 
           fail()
         })
@@ -106,29 +116,24 @@ export default {
       })
 
 
-
-
-
     },
     //默认展开的菜单
-    setDefaultCheck(){
+    setDefaultCheck() {
 
-      let path=this.$route.path;
-
-
-      let index=0;
-
-      for (let i in this.menuTree){
-
-        for (let j in this.menuTree[i].children){
+      let path = this.$route.path;
 
 
-          if (this.menuTree[i].children[j].path===path){
+      let index = 0;
+
+      for (let i in this.menuTree) {
+
+        for (let j in this.menuTree[i].children) {
 
 
+          if (this.menuTree[i].children[j].path === path) {
 
 
-            index= parseInt(i);
+            index = parseInt(i);
 
           }
 
@@ -137,32 +142,31 @@ export default {
       }
 
 
-      setTimeout(()=>{
+      setTimeout(() => {
 
-        this.index=[index+""];
+        this.index = [index + ""];
 
-        this.showMenu=true
+        this.showMenu = true
 
-      },200)
-
+      }, 200)
 
 
     },
-    logout(){
+    logout() {
 
       this.httpPost({
-        url:"/login/logout"
-      }).then(()=>{
+        url: "/login/logout"
+      }).then(() => {
 
         this.$router.push("/login")
 
       })
 
     },
-    log(item){
+    log(item) {
 
 
-      console.log(this.getObj(item,''))
+      console.log(this.getObj(item, ''))
 
     }
 
@@ -171,11 +175,10 @@ export default {
 
     this.getInfo()
 
-    this.getMenu().then(()=>{
+    this.getMenu().then(() => {
 
       this.setDefaultCheck()
     })
-
 
 
   },
@@ -202,11 +205,11 @@ export default {
       });
 
 
-      let temp=[];
+      let temp = [];
 
       for (const mapKey in result) {
 
-        if (result[mapKey].children){
+        if (result[mapKey].children) {
 
           temp.push(result[mapKey])
         }
@@ -233,13 +236,13 @@ export default {
 
 <style scoped>
 
-.menu-on{
+.menu-on {
 
   color: rgb(255, 208, 75) !important;
 
 }
 
-.menu{
+.menu {
 
   color: #FFFFFF !important;
 
