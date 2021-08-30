@@ -4,7 +4,7 @@
 
     <div style="width: 20vw;" class="col row-center col-center">
 
-      <h1 style="margin-bottom: 30px">Super Admin 2.0</h1>
+      <h1 style="margin-bottom: 30px">SuperAdmin 2.0</h1>
 
       <el-form :model="item" label-position="top" class="form">
 

@@ -1,15 +1,20 @@
-import { createStore } from 'vuex'
+import {createStore} from 'vuex'
 
 // Create a new store instance.
 const store = createStore({
-    state () {
+    state() {
         return {
-            count: 1
+            count: 1,
+            rules: []
         }
     },
     mutations: {
-        increment (state) {
+        increment(state) {
             state.count++
+        },
+        updateRules(state,data){
+
+            state.rules=data
         }
     }
 })

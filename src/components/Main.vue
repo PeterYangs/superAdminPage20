@@ -9,8 +9,8 @@
 
 
       <el-divider style="margin: 10px 0;"></el-divider>
-      <el-menu v-if="showMenu"  :default-active="index" background-color="#191A23" text-color="#fff"
-                active-text-color="#ffd04b">
+      <el-menu v-if="showMenu" :default-active="index" background-color="#191A23" text-color="#fff"
+               active-text-color="#ffd04b">
 
 
         <el-submenu v-for="(v,i) in menuTree" :index="i+''">
@@ -35,8 +35,7 @@
           <i class="el-icon-setting" style="margin-right: 15px"></i>
           <template #dropdown>
             <el-dropdown-menu>
-              <!--              <el-dropdown-item>查看</el-dropdown-item>-->
-              <!--              <el-dropdown-item>新增</el-dropdown-item>-->
+
               <el-dropdown-item @click="logout()">注销</el-dropdown-item>
             </el-dropdown-menu>
           </template>
@@ -45,11 +44,9 @@
       </el-header>
 
       <el-main>
-        <router-view></router-view>
+        <router-view v-if="show"></router-view>
       </el-main>
     </el-container>
-
-
 
 
   </el-container>
@@ -65,6 +62,7 @@ export default {
         username: ""
       },
       menu: [],
+      show: true
       // index: [],
       // showMenu: false
     }
@@ -140,10 +138,38 @@ export default {
 
       console.log(this.getObj(item, ''))
 
+    },
+    reload() {
+
+
+      this.show = false
+
+      this.$nextTick(() => {
+
+        this.show = true
+
+      });
+
+    },
+    getAllRule() {
+
+      this.httpGet({
+        url:"/admin/admin/getAllRule"
+      }).then((re)=>{
+
+
+        this.$store.commit('updateRules',re.data)
+
+      })
+
     }
+
 
   },
   mounted() {
+
+
+    this.$app.config.globalProperties.$mainContext = this;
 
     this.getInfo()
 
@@ -153,6 +179,10 @@ export default {
     // })
 
     this.getMenu()
+
+
+    this.getAllRule()
+
 
   },
   computed: {
@@ -208,7 +238,6 @@ export default {
       }
 
 
-
       let path = this.$route.path;
 
 
@@ -224,7 +253,7 @@ export default {
 
             // index = parseInt(i);
 
-            return i+"-"+j
+            return i + "-" + j
 
 
           }
@@ -250,10 +279,9 @@ export default {
       // return [index + ""];
 
     },
-    showMenu(){
+    showMenu() {
 
       return this.menu.length > 0;
-
 
 
     }

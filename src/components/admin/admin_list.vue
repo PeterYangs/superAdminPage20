@@ -20,10 +20,12 @@
             <el-input v-model="scope.row.username" placeholder="管理员名称" clearable></el-input>
 
 
-            <el-select v-model="scope.row.role_id" placeholder="角色" clearable>
-              <el-option label="超级管理员" value="0"></el-option>
-              <el-option v-for="(v,i) in role_list" :key="'role_list'+i" :label="v.title" :value="v.id"></el-option>
-            </el-select>
+            <auth rule="/admin/admin/roleList">
+              <el-select v-model="scope.row.role_id" placeholder="角色" clearable>
+                <el-option label="超级管理员" value="0"></el-option>
+                <el-option v-for="(v,i) in role_list" :key="'role_list'+i" :label="v.title" :value="v.id"></el-option>
+              </el-select>
+            </auth>
 
           </template>
 
@@ -76,8 +78,6 @@
         </div>
 
 
-<!--        <highcharts :options="chartOptions"></highcharts>-->
-
       </div>
 
 
@@ -89,6 +89,7 @@
 <script>
 
 import Search from "../common/Search.vue";
+import Auth from "../common/Auth.vue";
 
 export default {
   name: "admin_list",
@@ -101,11 +102,6 @@ export default {
         role_id: ""
       },
       role_list: [],
-      // chartOptions: {
-      //   series: [{
-      //     data: [1, 2, 3] // sample data
-      //   }]
-      // }
 
     }
   },
@@ -169,24 +165,21 @@ export default {
   },
   created() {
 
+
     this.getList()
 
-    // console.log(JSON.parse(this.$route.query.params))
 
-    // if (typeof (this.$route.query.params) !== "undefined") {
-    //
-    //   this.params = JSON.parse(this.$route.query.params)
-    // }
-    // this.params=JSON.parse(this.$route.query.params)
+    this.auth("/admin/admin/roleList").then(() => {
 
-    // console.log(this.$route.query.params)
+      this.getRoleList()
 
-    this.getRoleList()
+    })
 
 
   },
   components: {
-    Search
+    Search,
+    Auth
   }
 }
 </script>

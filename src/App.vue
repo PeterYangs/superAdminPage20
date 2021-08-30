@@ -16,7 +16,6 @@ export default {
     reload() {
 
 
-
       this.show = false
 
       this.$nextTick(() => {
@@ -25,10 +24,7 @@ export default {
 
       });
 
-      // this.show=true
-
     },
-
 
   },
   data() {

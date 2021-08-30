@@ -342,7 +342,7 @@ const common = (app, store) => {
              */
             for (let key in temp) {
 
-                if (key === 'random' || key ==="p") continue;
+                if (key === 'random' || key === "p") continue;
 
                 if (findIndex(query, key)) continue;
 
@@ -363,9 +363,9 @@ const common = (app, store) => {
         console.log(path + str)
 
 
-        context.$AppContext.$router.push(pathTemp + str).then(() => {
+        context.$mainContext.$router.push(pathTemp + str).then(() => {
 
-            context.$AppContext.reload()
+            context.$mainContext.reload()
         })
 
 
@@ -685,6 +685,75 @@ const common = (app, store) => {
             return defaultValue;
         }
 
+
+    }
+
+
+    app.config.globalProperties.auth = async function (rule) {
+
+        // console.log(store.state.rules)
+
+        while (true) {
+
+
+            if (!(store.state.rules?.length === 0)) {
+
+                break
+            }
+
+
+            await app.config.globalProperties.sleep(200)
+        }
+
+
+        return new Promise(async (success, fail) => {
+
+
+            console.log(store.state.rules)
+
+            if (rule === "") {
+
+                success()
+
+                return
+            }
+
+            if (store.state.rules === true) {
+
+                success()
+
+                return
+
+            }
+
+
+            for (const argumentsKey in store.state.rules) {
+
+
+                console.log(store.state.rules[argumentsKey])
+
+                if (store.state.rules[argumentsKey] === rule) {
+
+
+                    success()
+
+                    return
+
+                }
+
+            }
+
+            fail()
+
+
+        })
+
+    }
+
+
+    app.config.globalProperties.sleep = function (ms) {
+
+        return new Promise(resolve => setTimeout(resolve, ms))
 
     }
 
