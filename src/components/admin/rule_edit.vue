@@ -96,11 +96,11 @@ export default {
       })
 
     },
-    query(keyword,cb){
+    query(keyword, cb) {
 
       // console.log(keyword)
 
-      if (keyword===""){
+      if (keyword === "") {
 
         cb([])
 
@@ -109,19 +109,19 @@ export default {
       }
 
       this.httpGet({
-        url:"/admin/admin/SearchRule",
-        params:{
-          keyword:keyword
+        url: "/admin/admin/SearchRule",
+        params: {
+          keyword: keyword
         }
-      }).then((re)=>{
+      }).then((re) => {
 
         // console.log(re)
 
-        let temp=[];
+        let temp = [];
 
-        for (let i in re.data){
+        for (let i in re.data) {
 
-          temp.push({value:re.data[i]})
+          temp.push({value: re.data[i]})
         }
 
         cb(temp)

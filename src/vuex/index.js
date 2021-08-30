@@ -12,9 +12,9 @@ const store = createStore({
         increment(state) {
             state.count++
         },
-        updateRules(state,data){
+        updateRules(state, data) {
 
-            state.rules=data
+            state.rules = data
         }
     }
 })

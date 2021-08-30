@@ -1,5 +1,7 @@
 <template>
-  <el-row style="height: 100vh;width: 100vw;background-image: url('/img.png');background-repeat: no-repeat;background-size: 100% 100%;" justify="center" align="middle">
+  <el-row
+      style="height: 100vh;width: 100vw;background-image: url('/img.png');background-repeat: no-repeat;background-size: 100% 100%;"
+      justify="center" align="middle">
 
 
     <div style="width: 20vw;" class="col row-center col-center">
@@ -41,7 +43,7 @@
 
         </el-form-item>
 
-        <el-form-item >
+        <el-form-item>
 
           <el-button type="primary" style="width: 100%" @click="login()">提交</el-button>
 
@@ -62,33 +64,33 @@ export default {
   data() {
     return {
       item: {
-        username:"",
-        password:"",
-        captcha:""
+        username: "",
+        password: "",
+        captcha: ""
       },
-      img:this.getHost()+'/captcha/captcha?r='+Math.random()
+      img: this.getHost() + '/captcha/captcha?r=' + Math.random()
     }
   },
   methods: {
     login() {
 
       this.httpPost({
-        url:"/login/login",
-        data:this.item
-      }).then((re)=>{
+        url: "/login/login",
+        data: this.item
+      }).then((re) => {
 
 
         this.$router.push("/main/home")
 
-      }).catch(()=>{
+      }).catch(() => {
 
-        this.img=this.getHost()+'/captcha/captcha?r='+Math.random();
+        this.img = this.getHost() + '/captcha/captcha?r=' + Math.random();
       })
 
     },
-    changeImg(){
+    changeImg() {
 
-      this.img=this.getHost()+'/captcha/captcha?r='+Math.random();
+      this.img = this.getHost() + '/captcha/captcha?r=' + Math.random();
 
     }
   }

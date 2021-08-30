@@ -77,10 +77,6 @@
             </upload>
 
 
-
-
-
-
             <div v-if="item.img" style="margin-top: 10px">
               <el-image :src="getImagePath(item.img)" style="max-width: 200px"></el-image>
             </div>
@@ -239,16 +235,15 @@ export default {
       this.item.lv = lv
 
     },
-    lv(lv){
+    lv(lv) {
 
       // console.log(lv)
 
-      if (typeof(lv) == "undefined")
-      {
+      if (typeof (lv) == "undefined") {
         return 0;
       }
 
-      return parseInt(lv)-1;
+      return parseInt(lv) - 1;
 
     }
 

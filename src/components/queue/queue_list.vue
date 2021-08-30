@@ -59,7 +59,7 @@
     <el-dialog title="提示" v-model="showInfo" width="30%">
 
       <div>
-        <pre>{{info}}</pre>
+        <pre>{{ info }}</pre>
       </div>
 
       <template #footer>
@@ -85,8 +85,8 @@ export default {
       search: {
         queue: "default"
       },
-      info:{},
-      showInfo:false
+      info: {},
+      showInfo: false
     }
   },
   methods: {
@@ -107,9 +107,9 @@ export default {
     edit(id) {
 
 
-      this.info=id;
+      this.info = id;
 
-      this.showInfo=true;
+      this.showInfo = true;
 
 
     },
@@ -122,12 +122,10 @@ export default {
 
 
     },
-    queueChange(){
-
+    queueChange() {
 
 
       this.routerSearch(this, this.search);
-
 
 
     }
@@ -136,7 +134,7 @@ export default {
   created() {
     // console.log(this.$route.query)
 
-    this.setItem(this.search,this.$route.query)
+    this.setItem(this.search, this.$route.query)
 
     this.getList()
   }

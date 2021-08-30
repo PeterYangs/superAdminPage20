@@ -19,8 +19,8 @@
 
             <template v-slot="item">
 
-              <span v-if="item.row.pid===0">{{item.row.title}}</span>
-              <span v-else>&nbsp;&nbsp;&nbsp;&nbsp;├&nbsp;&nbsp;{{item.row.title}}</span>
+              <span v-if="item.row.pid===0">{{ item.row.title }}</span>
+              <span v-else>&nbsp;&nbsp;&nbsp;&nbsp;├&nbsp;&nbsp;{{ item.row.title }}</span>
 
             </template>
 
@@ -40,16 +40,16 @@
 
         </el-table>
 
-<!--        <div style="margin-top: 20px">-->
-<!--          <el-pagination-->
-<!--              @current-change="next"-->
-<!--              :page-size="list.size"-->
-<!--              background-->
-<!--              :current-page="list.page"-->
-<!--              layout="total,prev, pager, next,jumper"-->
-<!--              :total="list.total">-->
-<!--          </el-pagination>-->
-<!--        </div>-->
+        <!--        <div style="margin-top: 20px">-->
+        <!--          <el-pagination-->
+        <!--              @current-change="next"-->
+        <!--              :page-size="list.size"-->
+        <!--              background-->
+        <!--              :current-page="list.page"-->
+        <!--              layout="total,prev, pager, next,jumper"-->
+        <!--              :total="list.total">-->
+        <!--          </el-pagination>-->
+        <!--        </div>-->
 
       </div>
 

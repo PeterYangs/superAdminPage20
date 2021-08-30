@@ -154,11 +154,11 @@ export default {
     getAllRule() {
 
       this.httpGet({
-        url:"/admin/admin/getAllRule"
-      }).then((re)=>{
+        url: "/admin/admin/getAllRule"
+      }).then((re) => {
 
 
-        this.$store.commit('updateRules',re.data)
+        this.$store.commit('updateRules', re.data)
 
       })
 

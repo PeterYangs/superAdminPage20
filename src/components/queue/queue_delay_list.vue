@@ -11,14 +11,14 @@
       <div>
 
 
-<!--        <div style="margin-bottom: 30px" @change="queueChange">-->
-<!--          <el-radio-group v-model="search.queue">-->
-<!--            <el-radio-button label="high"></el-radio-button>-->
-<!--            <el-radio-button label="default"></el-radio-button>-->
-<!--            <el-radio-button label="low"></el-radio-button>-->
+        <!--        <div style="margin-bottom: 30px" @change="queueChange">-->
+        <!--          <el-radio-group v-model="search.queue">-->
+        <!--            <el-radio-button label="high"></el-radio-button>-->
+        <!--            <el-radio-button label="default"></el-radio-button>-->
+        <!--            <el-radio-button label="low"></el-radio-button>-->
 
-<!--          </el-radio-group>-->
-<!--        </div>-->
+        <!--          </el-radio-group>-->
+        <!--        </div>-->
 
         <el-table :data="list.data" style="width: 100%">
           <el-table-column prop="id" label="Id">
@@ -62,7 +62,7 @@
     <el-dialog title="提示" v-model="showInfo" width="30%">
 
       <div>
-        <pre>{{info}}</pre>
+        <pre>{{ info }}</pre>
       </div>
 
       <template #footer>
@@ -88,8 +88,8 @@ export default {
       search: {
         queue: "default"
       },
-      info:{},
-      showInfo:false
+      info: {},
+      showInfo: false
     }
   },
   methods: {
@@ -110,9 +110,9 @@ export default {
     edit(id) {
 
 
-      this.info=id;
+      this.info = id;
 
-      this.showInfo=true;
+      this.showInfo = true;
 
 
     },
@@ -125,12 +125,10 @@ export default {
 
 
     },
-    queueChange(){
-
+    queueChange() {
 
 
       this.routerSearch(this, this.search);
-
 
 
     }
@@ -139,7 +137,7 @@ export default {
   created() {
     // console.log(this.$route.query)
 
-    this.setItem(this.search,this.$route.query)
+    this.setItem(this.search, this.$route.query)
 
     this.getList()
   }

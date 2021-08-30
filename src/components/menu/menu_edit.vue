@@ -31,21 +31,17 @@
           </el-form-item>
 
 
-
-
-            <el-form-item label="路径" required prop="path" v-if="item.pid!==0">
-
-              <el-input placeholder="路径" v-model="item.path"></el-input>
-
-            </el-form-item>
-
-          <el-form-item label="路径"  prop="path" v-if="item.pid===0">
+          <el-form-item label="路径" required prop="path" v-if="item.pid!==0">
 
             <el-input placeholder="路径" v-model="item.path"></el-input>
 
           </el-form-item>
 
+          <el-form-item label="路径" prop="path" v-if="item.pid===0">
 
+            <el-input placeholder="路径" v-model="item.path"></el-input>
+
+          </el-form-item>
 
 
           <el-form-item label="排序" required prop="sort">
@@ -55,7 +51,7 @@
           </el-form-item>
 
 
-          <el-form-item label="路由规则"  prop="rule">
+          <el-form-item label="路由规则" prop="rule">
 
 
             <el-autocomplete placeholder="路由规则" v-model="item.rule" :fetch-suggestions="query"></el-autocomplete>
@@ -87,7 +83,7 @@ export default {
         path: "",
         sort: 100,
         id: 0,
-        rule:""
+        rule: ""
       },
       pids: []
     }
@@ -142,11 +138,11 @@ export default {
 
 
     },
-    query(keyword,cb){
+    query(keyword, cb) {
 
       // console.log(keyword)
 
-      if (keyword===""){
+      if (keyword === "") {
 
         cb([])
 
@@ -155,19 +151,19 @@ export default {
       }
 
       this.httpGet({
-        url:"/admin/admin/SearchRule",
-        params:{
-          keyword:keyword
+        url: "/admin/admin/SearchRule",
+        params: {
+          keyword: keyword
         }
-      }).then((re)=>{
+      }).then((re) => {
 
         // console.log(re)
 
-        let temp=[];
+        let temp = [];
 
-        for (let i in re.data){
+        for (let i in re.data) {
 
-          temp.push({value:re.data[i]})
+          temp.push({value: re.data[i]})
         }
 
         cb(temp)
