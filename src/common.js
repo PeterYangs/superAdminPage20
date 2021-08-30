@@ -691,7 +691,6 @@ const common = (app, store) => {
 
     app.config.globalProperties.auth = async function (rule) {
 
-        // console.log(store.state.rules)
 
         while (true) {
 
