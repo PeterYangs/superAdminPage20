@@ -11,7 +11,7 @@
       <div>
 
 
-        <big-file @success="success"></big-file>
+        <big-file @success="success" :max-size="1073741824"></big-file>
 
         <el-table :data="list.data" style="width: 100%">
           <el-table-column prop="id" label="Id">
