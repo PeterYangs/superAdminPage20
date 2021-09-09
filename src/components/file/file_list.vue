@@ -95,7 +95,7 @@ export default {
     edit(item) {
 
 
-      window.open(this.getEnv("imgHost")+item.path)
+      window.open(this.getEnv("imgHost")+"/"+item.path)
 
     },
     destroy(id) {
