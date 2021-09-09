@@ -12,8 +12,8 @@
 
     </div>
 
-    <el-dialog title="提示" :visible.sync="show" width="30%" :before-close="handleClose">
-      <div>
+    <el-dialog title="进度" v-model="show" width="30%" :before-close="handleClose">
+      <div class="row row-center">
         <el-progress type="circle" :percentage="percentage"></el-progress>
       </div>
 
@@ -62,7 +62,7 @@ export default {
       this.ws.onopen = () => {
 
 
-        this.show=true;
+        // this.show=true;
 
         let nums = Math.ceil(size / this.unitByte)
 
