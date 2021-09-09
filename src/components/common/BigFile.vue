@@ -121,11 +121,16 @@ export default {
 
         })
 
+        this.show=false
+
+        this.percentage=0
+
+        this.ws.close()
 
       }else if(data.code === 2){
 
 
-        this.percentage=data.data/this.nums
+        this.percentage=(data.data/this.nums*100).toFixed(2)
 
       }  else {
 
@@ -137,14 +142,17 @@ export default {
           type: 'error'
         });
 
+        this.show=false
+
+        this.percentage=0
+
+        this.ws.close()
 
       }
 
-      this.show=false
 
-      this.percentage=0
 
-      this.ws.close()
+
 
 
     },
