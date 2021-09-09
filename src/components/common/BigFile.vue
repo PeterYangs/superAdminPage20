@@ -62,7 +62,7 @@ export default {
       this.ws.onopen = () => {
 
 
-        // this.show=true;
+        this.show=true;
 
         let nums = Math.ceil(size / this.unitByte)
 
