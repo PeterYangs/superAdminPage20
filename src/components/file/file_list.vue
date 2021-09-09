@@ -32,6 +32,9 @@
 
           </el-table-column>
 
+          <el-table-column prop="admin.username" label="上传者">
+          </el-table-column>
+
 
           <el-table-column label="操作">
 
