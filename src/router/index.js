@@ -72,6 +72,11 @@ const routes = [
                 component: () => import('../components/access/access_list.vue')
 
             },
+            {
+                path:"file_list",
+                component:()=>import("../components/file/file_list.vue")
+
+            }
 
 
         ]

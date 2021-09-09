@@ -4,7 +4,7 @@
 
     <input v-else type="file" @change="change"/>
     <slot>
-      <el-button type="primary" size="small">主要按钮</el-button>
+      <el-button type="primary" size="small">上传</el-button>
     </slot>
   </div>
 </template>
