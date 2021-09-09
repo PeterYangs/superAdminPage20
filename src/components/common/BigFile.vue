@@ -31,7 +31,8 @@ export default {
     return {
       ws: null,
       show: false,
-      percentage:0
+      percentage:0,
+      nums:0
     }
   },
   methods: {
@@ -66,6 +67,8 @@ export default {
 
         let nums = Math.ceil(size / this.unitByte)
 
+        this.nums=nums
+
 
         this.ws.send(JSON.stringify({name: file.name, size: file.size, type: file.type, nums: nums}))
 
@@ -73,11 +76,13 @@ export default {
         for (let i = 0; i < nums; i++) {
 
 
+          // console.log(this.ws.send(this.blobSlice(file, i * this.unitByte, i * this.unitByte + this.unitByte)))
+
           this.ws.send(this.blobSlice(file, i * this.unitByte, i * this.unitByte + this.unitByte))
 
           index++
 
-          this.percentage=(index/nums*100).toFixed(2)
+          // this.percentage=(index/nums*100)
 
         }
 
@@ -105,7 +110,6 @@ export default {
       if (data.code === 1) {
 
 
-        // console.log(data);
 
         this.httpPost({
           url: "/admin/file/update",
@@ -118,7 +122,12 @@ export default {
         })
 
 
-      } else {
+      }else if(data.code === 2){
+
+
+        this.percentage=data.data/this.nums
+
+      }  else {
 
 
         this.$notify({
