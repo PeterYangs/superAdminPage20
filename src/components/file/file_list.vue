@@ -37,7 +37,7 @@
 
             <template v-slot="item">
 
-              <el-button type="primary" size="small" @click="edit(item.row.id)">编辑</el-button>
+<!--              <el-button type="primary" size="small" @click="edit(item.row.id)">编辑</el-button>-->
               <el-button type="danger" size="small" @click="destroy(item.row.id)">删除</el-button>
 
             </template>
@@ -102,7 +102,7 @@ export default {
     },
     destroy(id) {
 
-      this.msgBoxAjax("提示", "确定删除吗？", "/admin/xx/destroy/" + id).then((re) => {
+      this.msgBoxAjax("提示", "确定删除吗？", "/admin/file/destroy/" + id).then((re) => {
 
         if (re.code === 1) {
 
