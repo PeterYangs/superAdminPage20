@@ -76,25 +76,13 @@ export default {
         for (let i = 0; i < nums; i++) {
 
 
-          // console.log(this.ws.send(this.blobSlice(file, i * this.unitByte, i * this.unitByte + this.unitByte)))
-
           this.ws.send(this.blobSlice(file, i * this.unitByte, i * this.unitByte + this.unitByte))
 
           index++
 
-          // this.percentage=(index/nums*100)
 
         }
 
-        //
-        // while (true){
-        //
-        //
-        //
-        //
-        // }
-
-        // this.ws.close();
 
       }
 
