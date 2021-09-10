@@ -32,12 +32,15 @@
 
           </el-table-column>
 
+          <el-table-column prop="admin.username" label="上传者">
+          </el-table-column>
+
 
           <el-table-column label="操作">
 
             <template v-slot="item">
 
-              <!--              <el-button type="primary" size="small" @click="edit(item.row.id)">编辑</el-button>-->
+              <el-button type="primary" size="small" @click="edit(item.row)">下载</el-button>
               <el-button type="danger" size="small" @click="destroy(item.row.id)">删除</el-button>
 
             </template>
@@ -92,12 +95,10 @@ export default {
       })
 
     },
-    edit(id) {
+    edit(item) {
 
-      this.$router.push({
-        path: "/main/xx",
-        query: {id: id}
-      })
+
+      window.open(this.getEnv("imgHost")+"/"+item.path)
 
     },
     destroy(id) {
