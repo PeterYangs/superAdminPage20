@@ -24,10 +24,10 @@
           <el-table-column prop="path" label="文件地址">
           </el-table-column>
 
-          <el-table-column  label="文件大小">
+          <el-table-column label="文件大小">
 
             <template v-slot="item">
-              {{(item.row.size/(1024*1024)).toFixed(3)+"M"}}
+              {{ (item.row.size / (1024 * 1024)).toFixed(3) + "M" }}
             </template>
 
           </el-table-column>
@@ -37,7 +37,7 @@
 
             <template v-slot="item">
 
-<!--              <el-button type="primary" size="small" @click="edit(item.row.id)">编辑</el-button>-->
+              <!--              <el-button type="primary" size="small" @click="edit(item.row.id)">编辑</el-button>-->
               <el-button type="danger" size="small" @click="destroy(item.row.id)">删除</el-button>
 
             </template>
@@ -121,9 +121,20 @@ export default {
 
 
     },
-    success(){
+    success(path) {
 
-      this.getList()
+
+      this.httpPost({
+        url: "/admin/file/update",
+        data: path,
+        loading: true,
+      }).then((re) => {
+
+
+        this.getList()
+
+
+      })
 
     }
 

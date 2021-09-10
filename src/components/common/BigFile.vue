@@ -31,8 +31,8 @@ export default {
     return {
       ws: null,
       show: false,
-      percentage:0,
-      nums:0
+      percentage: 0,
+      nums: 0
     }
   },
   methods: {
@@ -55,7 +55,7 @@ export default {
       }
 
 
-      this.ws = new WebSocket(this.getEnv("ws")+"/admin/upload/big_file")
+      this.ws = new WebSocket(this.getEnv("ws") + "/admin/upload/big_file")
 
 
       this.ws.onmessage = this.message;
@@ -63,16 +63,16 @@ export default {
       this.ws.onopen = () => {
 
 
-        this.show=true;
+        this.show = true;
 
         let nums = Math.ceil(size / this.unitByte)
 
-        this.nums=nums
+        this.nums = nums
 
 
         this.ws.send(JSON.stringify({name: file.name, size: file.size, type: file.type, nums: nums}))
 
-        let index=0;
+        let index = 0;
         for (let i = 0; i < nums; i++) {
 
 
@@ -105,34 +105,25 @@ export default {
 
       let data = JSON.parse(e.data)
 
-      // switch ()
 
       if (data.code === 1) {
 
 
+        this.$emit("success", data.data)
 
-        this.httpPost({
-          url: "/admin/file/update",
-          data: data.data,
-          loading: true,
-        }).then((re) => {
 
-          this.$emit("success")
+        this.show = false
 
-        })
-
-        this.show=false
-
-        this.percentage=0
+        this.percentage = 0
 
         this.ws.close()
 
-      }else if(data.code === 2){
+      } else if (data.code === 2) {
 
 
-        this.percentage=(data.data/this.nums*100).toFixed(2)
+        this.percentage = (data.data / this.nums * 100).toFixed(2)
 
-      }  else {
+      } else {
 
 
         this.$notify({
@@ -142,17 +133,13 @@ export default {
           type: 'error'
         });
 
-        this.show=false
+        this.show = false
 
-        this.percentage=0
+        this.percentage = 0
 
         this.ws.close()
 
       }
-
-
-
-
 
 
     },
