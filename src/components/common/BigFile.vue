@@ -175,6 +175,7 @@ export default {
       default: 104857600
 
     },
+    //每个切块大小（默认：100kb）
     unitByte: {
 
       type: Number,
