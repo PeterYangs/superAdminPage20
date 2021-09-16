@@ -6,6 +6,7 @@ import store from "./vuex";
 import ElementPlus from 'element-plus';
 import 'element-plus/lib/theme-chalk/index.css';
 import common from "./common";
+// import Chat from 'vue-beautiful-chat'
 
 const app = createApp(App)
 

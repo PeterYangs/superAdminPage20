@@ -49,11 +49,23 @@
     </el-container>
 
 
+    <chat-window></chat-window>
+
+
   </el-container>
 </template>
 
 <script>
+
+
+import ChatWindow from 'vue-advanced-chat'
+import 'vue-advanced-chat/dist/vue-advanced-chat.css'
+
+
 export default {
+  components: {
+    ChatWindow
+  },
   data() {
 
     return {
@@ -62,9 +74,15 @@ export default {
         username: ""
       },
       menu: [],
-      show: true
+      show: true,
       // index: [],
       // showMenu: false
+
+      rooms: [],
+      messages: [],
+      currentUserId: 1234
+
+
     }
   },
   methods: {
@@ -162,7 +180,7 @@ export default {
 
       })
 
-    }
+    },
 
 
   },
