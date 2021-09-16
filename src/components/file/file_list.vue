@@ -27,7 +27,7 @@
           <el-table-column label="文件大小">
 
             <template v-slot="item">
-              {{ (item.row.size / (1024 * 1024)).toFixed(3) + "M" }}
+              {{ getSize(item.row.size ) }}
             </template>
 
           </el-table-column>
@@ -98,7 +98,7 @@ export default {
     edit(item) {
 
 
-      window.open(this.getEnv("imgHost")+"/"+item.path)
+      window.open(this.getEnv("imgHost") + "/" + item.path)
 
     },
     destroy(id) {
@@ -136,6 +136,27 @@ export default {
 
 
       })
+
+    },
+    getSize(size) {
+
+      if (size > 1073741824) {
+
+        return (size / (1024 * 1024 * 1024)).toFixed(3) + "G";
+      }
+
+      if (size > 1048576) {
+
+        return (size / (1024 * 1024)).toFixed(3) + "M";
+
+      }
+
+      if (size > 1024) {
+
+        return (size / (1024)).toFixed(3) + "Kb";
+      }
+
+      return size + "Byte"
 
     }
 
