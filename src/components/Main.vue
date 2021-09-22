@@ -62,7 +62,8 @@ export default {
         username: ""
       },
       menu: [],
-      show: true
+      show: true,
+      ws: null
       // index: [],
       // showMenu: false
     }
@@ -162,6 +163,43 @@ export default {
 
       })
 
+    },
+    connect() {
+
+
+      this.ws = new WebSocket(this.getEnv("ws") + '/admin/broadcast/broadcast')
+
+
+      this.ws.onopen = () => {
+
+        console.log('open')
+
+      }
+
+
+      this.ws.onmessage = (e) => {
+
+
+        // console.log(e.data)
+
+      }
+
+
+      this.ws.onerror = (e) => {
+
+
+        console.error("error:", e)
+
+      }
+
+
+      this.ws.onclose = () => {
+
+        console.log("close")
+
+      }
+
+
     }
 
 
@@ -182,6 +220,9 @@ export default {
 
 
     this.getAllRule()
+
+
+    this.connect()
 
 
   },
