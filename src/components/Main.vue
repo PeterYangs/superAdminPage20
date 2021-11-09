@@ -53,6 +53,10 @@
 </template>
 
 <script>
+
+import { ElNotification } from 'element-plus'
+
+
 export default {
   data() {
 
@@ -63,7 +67,8 @@ export default {
       },
       menu: [],
       show: true,
-      ws: null
+      ws: null,
+      timeId: null
       // index: [],
       // showMenu: false
     }
@@ -170,36 +175,89 @@ export default {
       this.ws = new WebSocket(this.getEnv("ws") + '/admin/broadcast/broadcast')
 
 
-      this.ws.onopen = () => {
+      this.ws.onopen = this.open;
 
-        console.log('open')
+
+      this.ws.onmessage = this.message;
+
+
+      this.ws.onerror = this.error;
+
+
+      this.ws.onclose = this.close;
+
+
+    },
+    open() {
+
+      console.log('open')
+
+
+      this.ping();
+
+    },
+    message(e) {
+
+      let message = e.data;
+
+      message = JSON.parse(message)
+
+      console.log(message)
+
+      switch (message.types) {
+
+        case "ping":
+
+          break;
+
+        case "group_test":
+
+          ElNotification({
+            title:"消息",
+            message:message.message,
+          })
+
+          break;
+
 
       }
 
 
-      this.ws.onmessage = (e) => {
+    },
+    error(e) {
+
+      console.error("error:", e)
+    },
+    close() {
+
+      console.log("close")
+
+      clearInterval(this.timeId)
 
 
-        // console.log(e.data)
+      //断线重连
+      setTimeout(() => {
 
-      }
+        this.connect();
 
+      }, 1000)
 
-      this.ws.onerror = (e) => {
+    },
+    ping() {
 
-
-        console.error("error:", e)
-
-      }
-
-
-      this.ws.onclose = () => {
-
-        console.log("close")
-
-      }
+      this.timeId = setInterval(() => {
 
 
+        this.sendMessage(1, 'ping', "")
+
+
+      }, 10000)
+
+    },
+    sendMessage(code, type, message, data = []) {
+
+
+      this.ws.send(JSON.stringify({code: code, types: type, message: message, data: data}))
     }
 
 

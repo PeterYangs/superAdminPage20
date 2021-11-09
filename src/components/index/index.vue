@@ -9,6 +9,10 @@
       <div>
 
 
+        <div>
+          <el-button type="primary" @click="group_test()">群发测试</el-button>
+        </div>
+
         <highcharts :options="options"></highcharts>
 
 
@@ -762,6 +766,17 @@ export default {
       }
 
     }
+  },
+  methods:{
+
+    group_test(){
+
+      this.httpPost({
+        url:"/admin/broadcast/groupMessage"
+      })
+
+    }
+
   }
 }
 </script>
