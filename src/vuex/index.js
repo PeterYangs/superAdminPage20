@@ -5,7 +5,8 @@ const store = createStore({
     state() {
         return {
             count: 1,
-            rules: []
+            rules: [],
+            total:0
         }
     },
     mutations: {
@@ -15,6 +16,10 @@ const store = createStore({
         updateRules(state, data) {
 
             state.rules = data
+        },
+        setTotal(state, data){
+
+            state.total=data
         }
     }
 })

@@ -11,6 +11,10 @@
 
         <div>
           <el-button type="primary" @click="group_test()">群发测试</el-button>
+
+
+          <div style="margin-top: 10px">当前在线连接数:{{ $store.state.total }}</div>
+
         </div>
 
         <highcharts :options="options"></highcharts>
@@ -767,12 +771,12 @@ export default {
 
     }
   },
-  methods:{
+  methods: {
 
-    group_test(){
+    group_test() {
 
       this.httpPost({
-        url:"/admin/broadcast/groupMessage"
+        url: "/admin/broadcast/groupMessage"
       })
 
     }

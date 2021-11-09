@@ -220,6 +220,13 @@ export default {
           break;
 
 
+        case "total":
+
+          this.$store.commit('setTotal',message.data)
+
+          break;
+
+
       }
 
 
