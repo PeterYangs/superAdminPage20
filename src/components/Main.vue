@@ -54,7 +54,7 @@
 
 <script>
 
-import { ElNotification } from 'element-plus'
+import {ElNotification} from 'element-plus'
 
 
 export default {
@@ -68,7 +68,8 @@ export default {
       menu: [],
       show: true,
       ws: null,
-      timeId: null
+      timeId: null,
+      reConnect: false,
       // index: [],
       // showMenu: false
     }
@@ -213,8 +214,8 @@ export default {
         case "group_test":
 
           ElNotification({
-            title:"消息",
-            message:message.message,
+            title: "消息",
+            message: message.message,
           })
 
           break;
@@ -222,7 +223,7 @@ export default {
 
         case "total":
 
-          this.$store.commit('setTotal',message.data)
+          this.$store.commit('setTotal', message.data)
 
           break;
 
@@ -242,12 +243,17 @@ export default {
       clearInterval(this.timeId)
 
 
-      //断线重连
-      setTimeout(() => {
+      if (this.reConnect) {
 
-        this.connect();
+        //断线重连
+        setTimeout(() => {
 
-      }, 1000)
+          this.connect();
+
+        }, 1000)
+
+      }
+
 
     },
     ping() {
@@ -271,6 +277,8 @@ export default {
   },
   mounted() {
 
+
+    this.reConnect = true
 
     this.$app.config.globalProperties.$mainContext = this;
 
@@ -391,6 +399,17 @@ export default {
 
 
     }
+
+  },
+  beforeRouteLeave(to, from) {
+
+
+    console.log('leave')
+
+    this.reConnect = false
+
+    this.ws.close()
+
 
   }
 
