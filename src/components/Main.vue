@@ -13,7 +13,7 @@
                active-text-color="#ffd04b">
 
 
-        <el-submenu v-for="(v,i) in menuTree" :index="i+''">
+        <el-menu-item-group v-for="(v,i) in menuTree" :index="i+''">
 
           <template #title><i class="el-icon-message"></i>{{ v.title }}</template>
 
@@ -22,7 +22,7 @@
           </el-menu-item>
 
 
-        </el-submenu>
+        </el-menu-item-group>
 
       </el-menu>
     </el-aside>
@@ -78,15 +78,7 @@ export default {
 
     toPath(url) {
 
-      try {
-
-        this.$router.push(url)
-
-      } catch (e) {
-
-        console.log(e)
-
-      }
+      this.$router.push(url)
 
 
     },
@@ -102,31 +94,16 @@ export default {
     },
     getMenu() {
 
+      this.httpPost({
+        url: "/admin/admin/getMyMenu",
+        loading: true,
+      }).then((re) => {
 
-      return new Promise((success, fail) => {
+        this.menu = re.data;
 
-        this.httpPost({
-          url: "/admin/admin/getMyMenu",
-          loading: true,
-        }).then((re) => {
-
-          this.menu = re.data;
-
-          this.$nextTick(() => {
-
-
-            success()
-
-          })
-
-        }).catch(() => {
-
-          fail()
-        })
-
+      }).catch(() => {
 
       })
-
 
     },
     logout() {
@@ -303,22 +280,22 @@ export default {
     menuTree() {
 
       if (this.menu.length <= 0) {
-
         return [];
       }
 
-      let result = []
+      let result = [];
       if (!Array.isArray(this.menu)) {
-        return result
+        return result;
       }
-      this.menu.forEach(item => {
-        delete item.children;
-      });
+
+      // 复制 menu 数据，避免修改原始数据
+      let clonedMenu = JSON.parse(JSON.stringify(this.menu));
+
       let map = {};
-      this.menu.forEach(item => {
+      clonedMenu.forEach(item => {
         map[item.id] = item;
       });
-      this.menu.forEach(item => {
+      clonedMenu.forEach(item => {
         let parent = map[item.pid];
         if (parent) {
           (parent.children || (parent.children = [])).push(item);
@@ -327,16 +304,11 @@ export default {
         }
       });
 
-
       let temp = [];
-
       for (const mapKey in result) {
-
         if (result[mapKey].children) {
-
-          temp.push(result[mapKey])
+          temp.push(result[mapKey]);
         }
-
       }
 
       return temp;
